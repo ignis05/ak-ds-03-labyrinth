@@ -1,7 +1,13 @@
+var config = {
+    hexagons: {
+        offset: 20
+    }
+}
+
 var tab = []
 
 function create() {
-    $("#root").find(".hexagon").remove()
+    $("#map").find(".hexagon").remove()
     var quantity = $("#select").val()
     console.log(`creating ${quantity} hexagons`);
     var id = 0;
@@ -13,14 +19,14 @@ function create() {
                 .css("position", "absolute")
                 .css("background-image", "url('/static/img/hexagon.png')")
                 .css("background-size", "contain")
-                .css("left", 200 + 75 * j)
+                .css("left",  (77 * j) + config.hexagons.offset)
             if (j % 2 == 0) {
                 img
-                    .css("top", 98.5 * i)
+                    .css("top", (98.5 * i) + config.hexagons.offset)
             }
             else {
                 img
-                    .css("top", 98.5 * i + 50)
+                    .css("top", (98.5 * i + 50) + config.hexagons.offset)
             }
 
 
@@ -50,7 +56,7 @@ function create() {
             })
 
 
-            img.appendTo($("#root"))
+            img.appendTo($("#map"))
             id++
         }
 
@@ -60,5 +66,5 @@ function create() {
 
 $(document).ready(() => {
     console.log("document ready");
-    $("#create").click(create)
+    $("#btCreate").click(create)
 })
