@@ -6,22 +6,21 @@ function create() {
     console.log(`creating ${quantity} hexagons`);
     var id = 0;
     tab = []
-    for (var j = 0; j < quantity * 2; j++) {
-        for (var i = 0; i < quantity / 2; i++) {
+    for (var j = 0; j < quantity; j++) {
+        for (var i = 0; i < quantity; i++) {
             let img = $(`<div class='hexagon' id='hexagon${id}'>`)
             img
                 .css("position", "absolute")
                 .css("background-image", "url('/static/img/hexagon.png')")
                 .css("background-size", "contain")
+                .css("left", 200 + 75 * j)
             if (j % 2 == 0) {
                 img
-                    .css("top", (50 * j))
-                    .css("left", 200 + 150 * i)
+                    .css("top", 98.5 * i)
             }
             else {
                 img
-                    .css("top", (50 * j))
-                    .css("left", (200 + 150 * i) + 75)
+                    .css("top", 98.5 * i + 50)
             }
 
 
