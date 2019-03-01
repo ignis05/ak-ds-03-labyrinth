@@ -1,0 +1,41 @@
+* {
+    box-sizing: border-box;
+    user-select: none;
+    margin: 0;
+    padding: 0;
+}
+
+#root {
+    width: 100vw;
+    height: 100vh;
+    background: cyan;
+    position: relative;
+}
+
+#controls {
+    height: 100%;
+    width: 200px;
+    background: gray;
+}
+
+.hexagon {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.arrow {
+    height: 50%;
+}
+
+.displayDiv {
+    position: absolute;
+    left: 45px;
+    top: 50px;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+}
