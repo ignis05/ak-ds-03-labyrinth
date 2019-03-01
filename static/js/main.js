@@ -10,7 +10,7 @@ function create() {
     level = []
     for (let j = 0; j < quantity; j++) {
         for (let i = 0; i < quantity; i++) {
-            new Hex(id, j, i)
+            new Hex(id, j, i, level)
             id++
         }
     }
