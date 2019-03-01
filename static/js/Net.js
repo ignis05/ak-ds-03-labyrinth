@@ -1,0 +1,6 @@
+class Net{
+    constructor(){
+
+    }
+    
+}
