@@ -2,6 +2,10 @@ var http = require("http");
 var fs = require("fs");
 var qs = require("querystring")
 
+var serverDB = {
+    level: []
+}
+
 var server = http.createServer(function (req, res) {
     switch (req.method) {
         case "GET":
@@ -60,37 +64,54 @@ var server = http.createServer(function (req, res) {
                 });
             }
             break;
-        // case "POST":
-        //     if (req.url == "/load") {
-        //         load(req, res)
-        //     }
-        //     else {
-        //         servResponse(req, res)
-        //     }
-        //     // przy starcie, na żądanie klienta, zwróć JSON-a z nazwami katalogów zczytane z serwera
-        //     break;
-        default: break;
+        case "POST":
+            if (req.url == "/saveLevel") {
+                saveLevel(req, res)
+            }
+            else {
+                throw "wrong POST url"
+            }
+            break;
+        default:
+            break;
     }
 
 })
 
-function servResponse(req, res) {
+function saveLevel(req, res) {
     var allData = "";
     req.on("data", function (data) {
-        console.log("data: " + data)
+        //console.log("data: " + data)
         allData += data;
     })
-
     req.on("end", function (data) {
         var finish = qs.parse(allData)
-        console.log(finish)
-        finish.b = parseInt(finish.a) * 2
+        //console.log(finish)
 
-        //res.writeHead(200, { 'Content-Type': 'text/plain;;charset=utf-8' });
-        res.end(JSON.stringify(finish));
+        serverDB.level = finish
+        console.log("level saved on server");
+
+        var reply = true
+        res.end(JSON.stringify(reply));
     })
-
 }
+
+// function servResponse(req, res) {
+//     var allData = "";
+//     req.on("data", function (data) {
+//         //console.log("data: " + data)
+//         allData += data;
+//     })
+//     req.on("end", function (data) {
+//         var finish = qs.parse(allData)
+//         //console.log(finish)
+//         var reply = {
+//             ok: "OK"
+//         }
+//         //res.writeHead(200, { 'Content-Type': 'text/plain;;charset=utf-8' });
+//         res.end(JSON.stringify(reply));
+//     })
+// }
 
 server.listen(3000, function () {
     console.log("serwer startuje na porcie 3000")

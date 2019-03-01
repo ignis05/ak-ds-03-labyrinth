@@ -39,7 +39,7 @@
 .arrow {
     height: 25%;
     position: relative;
-    top:-25px;
+    top: -25px;
 }
 
 .displayDiv {
@@ -49,7 +49,7 @@
     color: white;
     font-size: 25px;
     font-weight: bold;
-    width:12.5px;
+    width: 12.5px;
     height: 28px;
 }
 
@@ -64,4 +64,5 @@ select {
 #btSave {
     margin-top: 20px;
     padding: 10px;
+    width: 150px;
 }

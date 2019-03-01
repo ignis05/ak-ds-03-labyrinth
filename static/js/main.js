@@ -1,3 +1,5 @@
+var net = new Net()
+
 var config = {
     hexagons: {
         offset: 20,
@@ -73,5 +75,20 @@ function create() {
 
 $(document).ready(() => {
     console.log("document ready");
+
     $("#btCreate").click(create)
+    $("#btSave").click(async function() {
+        console.log("sending");
+        var res = await net.saveLevel(level)
+        if(res === true){
+            console.log("saving successful");
+            $(this).text("SUCCESS!")
+            setTimeout(()=>{
+                $(this).text("Save on server")
+            },2000)
+        }
+        else {
+            console.error("level saving error");
+        }
+    })
 })
