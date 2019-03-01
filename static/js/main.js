@@ -39,13 +39,14 @@ function create() {
                 else {
                     console.log("exists");
                     if (tab[id] == 5) {
-                        tab = 0
+                        tab[id] = 0
                     }
                     else {
                         tab[id]++
                     }
                 }
                 $("#displayDiv" + id).text(tab[id])
+                $("#arrow" + id).css("transform", "rotate(" + tab[id] * 60 + "deg)")
             })
 
 
