@@ -6,14 +6,14 @@
 }
 
 #root {
-    width: 100vw;
+    width: auto;
     height: auto;
     position: relative;
     display: flex;
 }
 
 #controls {
-    height: 120vh;
+    height: 1150px;
     width: 200px;
     background: gray;
     padding: 10px;
@@ -23,12 +23,12 @@
     display: block;
     background: cyan;
     position: relative;
-    height: 120vh;
+    height: 1150px;
     width: 100vw;
 }
 
 .hexagon {
-    width: 100px;
+    width: 115px;
     height: 100px;
     display: flex;
     align-items: center;
@@ -37,16 +37,20 @@
 }
 
 .arrow {
-    height: 50%;
+    height: 25%;
+    position: relative;
+    top:-25px;
 }
 
 .displayDiv {
     position: absolute;
-    left: 45px;
-    top: 50px;
+    left: 51.25px;
+    top: 36px;
     color: white;
     font-size: 25px;
     font-weight: bold;
+    width:12.5px;
+    height: 28px;
 }
 
 select {

@@ -1,6 +1,7 @@
 var config = {
     hexagons: {
-        offset: 20
+        offset: 20,
+        spaces: 5,
     }
 }
 
@@ -19,14 +20,14 @@ function create() {
                 .css("position", "absolute")
                 .css("background-image", "url('/static/img/hexagon.png')")
                 .css("background-size", "contain")
-                .css("left",  (77 * j) + config.hexagons.offset)
+                .css("left",  ((86.25 + config.hexagons.spaces +1) * j) + config.hexagons.offset)
             if (j % 2 == 0) {
                 img
-                    .css("top", (98.5 * i) + config.hexagons.offset)
+                    .css("top", ((100 + config.hexagons.spaces) * i) + config.hexagons.offset)
             }
             else {
                 img
-                    .css("top", (98.5 * i + 50) + config.hexagons.offset)
+                    .css("top", ((100 + config.hexagons.spaces) * i + 50) + config.hexagons.offset)
             }
 
 
@@ -52,7 +53,7 @@ function create() {
                     }
                 }
                 $("#displayDiv" + id).text(tab[id])
-                $("#arrow" + id).css("transform", "rotate(" + tab[id] * 60 + "deg)")
+                img.css("transform", "rotate(" + tab[id] * 60 + "deg)")
             })
 
 
