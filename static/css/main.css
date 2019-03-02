@@ -37,20 +37,22 @@
 }
 
 .arrow {
-    height: 25%;
+    height: 35%;
     position: relative;
     top: -25px;
+    transform: rotate(90deg)
 }
 
 .displayDiv {
     position: absolute;
     left: 51.25px;
     top: 36px;
-    color: white;
+    color: black;
     font-size: 25px;
     font-weight: bold;
     width: 12.5px;
     height: 28px;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 select {
