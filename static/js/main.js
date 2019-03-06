@@ -1,5 +1,7 @@
 var net = new Net()
 
+var display = null;
+
 var map = {
     size: null,
     level: [],
@@ -14,7 +16,7 @@ function create() {
     map.level = []
     for (let j = 0; j < quantity; j++) {
         for (let i = 0; i < quantity; i++) {
-            new Hex(id, j, i, map.level)
+            new Hex(id, j, i, map, display)
             id++
         }
     }
@@ -23,6 +25,8 @@ function create() {
 
 $(document).ready(() => {
     console.log("document ready");
+
+    display = document.getElementById("display")
 
     $("#btCreate").click(create)
     $("#btSave").click(async function () {

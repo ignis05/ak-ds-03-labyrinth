@@ -1,5 +1,5 @@
 class Hex {
-    constructor(id, col, row, table) {
+    constructor(id, col, row, map, displayBlock) {
         //#region config
         this.offset = 20
         this.spaces = 5
@@ -22,14 +22,14 @@ class Hex {
             var id = this.id.substr(7, this.id.length - 2)
             console.log(`hexagon ${id} clicked`);
             console.log(`col: ${col}, row: ${row}`);
-            var entry = table.find(hexagon => hexagon.id == id)
+            var entry = map.level.find(hexagon => hexagon.id == id)
             if (entry == undefined) {
                 console.log("doesnt exist yet - creating");
                 var arrow = $("<img src='/static/img/arrow.png' class='arrow' id='arrow" + id + "'>")
                 $("#hexagon" + id).append(arrow)
                 var div = $("<div id='displayDiv" + id + "' class='displayDiv'>")
                 $("#hexagon" + id).append(div)
-                table.push(
+                map.level.push(
                     {
                         id: id,
                         col: col,
@@ -38,7 +38,7 @@ class Hex {
                         dirIn: 3,
                     }
                 )
-                entry = table.find(hexagon => hexagon.id == id)
+                entry = map.level.find(hexagon => hexagon.id == id)
             }
             else {
                 console.log("exists - updating");
@@ -54,6 +54,7 @@ class Hex {
             console.log("dirin: " + entry.dirIn);
             $("#displayDiv" + id).text(entry.dirOut)
             img.css("transform", "rotate(" + entry.dirOut * 60 + "deg)")
+            displayBlock.innerText = JSON.stringify(map, null, 4)
         })
 
         img.appendTo($("#map"))
