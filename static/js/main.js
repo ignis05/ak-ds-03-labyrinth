@@ -12,26 +12,18 @@ var map = {
 }
 
 function create() {
-    $("#map").find(".hexagon").remove()
-    var quantity = $("#select").val()
-    map.size = quantity
-    console.log(`creating ${quantity} hexagons`);
-    var id = 0;
+    map.size = $("#select").val()
+    console.log(`creating ${map.size} hexagons`);
     map.level = []
-    for (let j = 0; j < quantity; j++) {
-        for (let i = 0; i < quantity; i++) {
-            new Hex(id, j, i, map, display, variables)
-            id++
-        }
-    }
+    displayHexagons()
 }
 
-function displayLoadedMap() {
+function displayHexagons() {
     $("#map").find(".hexagon").remove()
     var id = 0;
     for (let j = 0; j < map.size; j++) {
         for (let i = 0; i < map.size; i++) {
-            new Hex(id, j, i, map, display, variables.typeOfNextHex)
+            new Hex(id, j, i, map, display, variables)
             id++
         }
     }
@@ -63,7 +55,7 @@ $(document).ready(() => {
         var res = await net.loadlevel()
         map = res
         display.innerText = JSON.stringify(map, null, 4)
-        displayLoadedMap()
+        displayHexagons()
     })
 
 
