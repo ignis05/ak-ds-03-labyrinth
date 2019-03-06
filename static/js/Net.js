@@ -6,7 +6,7 @@ class Net {
         return new Promise(promise => {
             $.ajax({
                 url: "/saveLevel",
-                data: {map:JSON.stringify(mapObject)} ,
+                data: JSON.stringify(mapObject) ,
                 type: "POST",
                 success: data => {
                     var obj = JSON.parse(data)

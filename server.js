@@ -88,13 +88,8 @@ function saveLevel(req, res) {
         allData += data;
     })
     req.on("end", function (data) {
-        var finish =  qs.parse(allData)
-        console.log(finish)
-
-        serverDB.map = finish.map
-        console.log("level saved on server");
-        console.log(serverDB.map);
-
+        var finish =  JSON.parse(allData)
+        serverDB.map = finish
         var reply = true
         res.end(JSON.stringify(reply));
     })
