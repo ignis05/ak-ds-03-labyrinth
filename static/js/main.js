@@ -44,11 +44,17 @@ $(document).ready(() => {
             console.error("map saving error");
         }
     })
+    $("#btLoad").click(async function () {
+        console.log("loading");
+        var res = await net.loadlevel()
+        console.log(res);
+        map = res
+        display.innerText = JSON.stringify(map, null, 4)
+    })
+
 
     // hex type changers
-    
-    //initial active:
-    $("#btWalls").addClass("btActive")
+    $("#btWalls").addClass("btActive") //initial active:
 
     $(".hexButton").click(function () {
         var type = this.id.slice(2).toLowerCase()

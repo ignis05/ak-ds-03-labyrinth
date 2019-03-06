@@ -3,7 +3,7 @@ var fs = require("fs");
 var qs = require("querystring")
 
 var serverDB = {
-    map:{}
+    map: {}
 }
 
 var server = http.createServer(function (req, res) {
@@ -68,6 +68,9 @@ var server = http.createServer(function (req, res) {
             if (req.url == "/saveLevel") {
                 saveLevel(req, res)
             }
+            else if (req.url == "/loadLevel") {
+                loadlevel(req, res)
+            }
             else {
                 throw "wrong POST url"
             }
@@ -85,14 +88,26 @@ function saveLevel(req, res) {
         allData += data;
     })
     req.on("end", function (data) {
-        var finish = qs.parse(allData)
-        //console.log(finish)
+        var finish =  qs.parse(allData)
+        console.log(finish)
 
         serverDB.map = finish
         console.log("level saved on server");
         console.log(serverDB.map);
 
         var reply = true
+        res.end(JSON.stringify(reply));
+    })
+}
+
+function loadlevel(req, res) {
+    var allData = "";
+    req.on("data", function (data) {
+        //console.log("data: " + data)
+        allData += data;
+    })
+    req.on("end", function (data) {
+        var reply = serverDB.map
         res.end(JSON.stringify(reply));
     })
 }

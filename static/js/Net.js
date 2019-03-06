@@ -20,4 +20,24 @@ class Net {
         })
     }
 
+    loadlevel() {
+        console.log("loading level from server");
+        return new Promise(promise => {
+            $.ajax({
+                url: "/loadLevel",
+                data: {},
+                type: "POST",
+                success: data => {
+                    var obj = JSON.parse(data)
+                    console.log(obj);
+                    promise(obj)
+                },
+                error: (xhr, status, error) => {
+                    console.log(xhr);
+                    throw "error"
+                },
+            });
+        })
+    }
+
 }
