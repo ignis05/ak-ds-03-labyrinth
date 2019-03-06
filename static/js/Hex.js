@@ -29,20 +29,31 @@ class Hex {
                 $("#hexagon" + id).append(arrow)
                 var div = $("<div id='displayDiv" + id + "' class='displayDiv'>")
                 $("#hexagon" + id).append(div)
-                table.push({ id: id, col: col, row: row, dir: 0, })
+                table.push(
+                    {
+                        id: id,
+                        col: col,
+                        row: row,
+                        dirOut: 0,
+                        dirIn: 3,
+                    }
+                )
                 entry = table.find(hexagon => hexagon.id == id)
             }
             else {
                 console.log("exists - updating");
-                if (entry.dir == 5) {
-                    entry.dir = 0
+                if (entry.dirOut == 5) {
+                    entry.dirOut = 0
+                    entry.dirIn = 3
                 }
                 else {
-                    entry.dir++
+                    entry.dirOut++
+                    entry.dirIn = (3 + entry.dirOut) % 6
                 }
             }
-            $("#displayDiv" + id).text(entry.dir)
-            img.css("transform", "rotate(" + entry.dir * 60 + "deg)")
+            console.log("dirin: " + entry.dirIn);
+            $("#displayDiv" + id).text(entry.dirOut)
+            img.css("transform", "rotate(" + entry.dirOut * 60 + "deg)")
         })
 
         img.appendTo($("#map"))
