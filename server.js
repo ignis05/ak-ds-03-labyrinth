@@ -91,7 +91,7 @@ function saveLevel(req, res) {
         var finish =  qs.parse(allData)
         console.log(finish)
 
-        serverDB.map = finish
+        serverDB.map = finish.map
         console.log("level saved on server");
         console.log(serverDB.map);
 
