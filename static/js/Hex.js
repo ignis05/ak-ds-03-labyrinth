@@ -63,7 +63,7 @@ class Hex {
                     img.css("color", "red")
                     break
                 case "treasure":
-                    img.css("color", "green")
+                    img.css("color", "blue")
                     break
                 case "light":
                     img.css("color", "yellow")
@@ -105,7 +105,7 @@ class Hex {
                     img.css("color", "red")
                     break
                 case "treasure":
-                    img.css("color", "green")
+                    img.css("color", "blue")
                     break
                 case "light":
                     img.css("color", "yellow")

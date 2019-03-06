@@ -12,6 +12,7 @@ var map = {
 }
 
 function create() {
+    display.innerText = ""
     map.size = $("#select").val()
     console.log(`creating ${map.size} hexagons`);
     map.level = []
@@ -41,9 +42,12 @@ $(document).ready(() => {
         var res = await net.saveLevel(map)
         if (res === true) {
             console.log("saving successful");
-            $(this).text("SUCCESS!")
+            let orgText = $(this).text()
+            $(this).attr("disabled", true)
+            $(this).text("Saved!")
             setTimeout(() => {
-                $(this).text("Save on server")
+                $(this).text(orgText)
+                $(this).attr("disabled", false)
             }, 2000)
         }
         else {
@@ -56,6 +60,13 @@ $(document).ready(() => {
         map = res
         display.innerText = JSON.stringify(map, null, 4)
         displayHexagons()
+        let orgText = $(this).text()
+        $(this).attr("disabled", true)
+        $(this).text("Loaded!")
+        setTimeout(() => {
+            $(this).text(orgText)
+            $(this).attr("disabled", false)
+        }, 2000)
     })
 
 

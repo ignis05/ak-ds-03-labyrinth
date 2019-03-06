@@ -9,12 +9,16 @@
     width: auto;
     height: auto;
     position: relative;
-    display: flex;
+    display: block;
+}
+
+#root>* {
+    float: left;
 }
 
 #controls {
-    height: 1150px;
-    width: 200px;
+    height: 100vh;
+    width: 180px;
     background: gray;
     padding: 10px;
 }
@@ -22,14 +26,21 @@
 #map {
     display: block;
     background: cyan;
-    position: relative;
-    height: 1150px;
+    height: 100vh;
     width: 100vw;
+    overflow: auto;
+    margin-left: 380px;
+    position: absolute;
+    top: 0px;
+}
+
+#map>*:last-child {
+    margin-bottom: 30px;
 }
 
 #display {
-    width: 500px;
-    height: 1150px;
+    width: 200px;
+    height: 100vh;
     background: #aaaaaa;
     white-space: pre;
     overflow: auto;
@@ -64,6 +75,8 @@
 
 select {
     padding: 5px;
+    width: 60px;
+    font-size: 24px;
 }
 
 button {
@@ -72,23 +85,40 @@ button {
 
 #btCreate {
     padding: 5px;
+    height: 41px;
+    width: 85px;
+    -webkit-text-stroke: 1px black;
+    font-size: 24px;
+    color: grey;
 }
 
 #btSave {
-    margin-top: 20px;
+    margin-top: 30px;
     padding: 10px;
     width: 150px;
+    display: block;
+    width: 150px;
+    -webkit-text-stroke: 1px black;
+    letter-spacing: 5px;
+    font-size: 24px;
+    color: rgb(33, 218, 33);
 }
 
 #btLoad {
-    margin-top: 20px;
+    margin-top: 10px;
     padding: 10px;
     width: 150px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    display: block;
+    width: 150px;
+    -webkit-text-stroke: 1px black;
+    letter-spacing: 5px;
+    font-size: 24px;
+    color: violet;
 }
 
 .hexButton {
-    padding:5px;
+    padding: 5px;
     margin-top: 10px;
     display: block;
     width: 150px;
@@ -97,19 +127,30 @@ button {
     font-size: 24px;
 }
 
+.hexButton:hover {
+    outline: 3px solid rgba(0, 255, 255, 0.329);
+}
+
 .btActive {
+    outline: 3px solid cyan;
+}
+
+.btActive:hover  {
     outline: 3px solid cyan;
 }
 
 #btWalls {
     color: black;
 }
+
 #btEnemy {
     color: red;
 }
+
 #btTreasure {
-    color: green;
+    color: blue;
 }
+
 #btLight {
-    color: yellow; 
+    color: yellow;
 }
