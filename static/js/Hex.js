@@ -59,5 +59,16 @@ class Hex {
         })
 
         img.appendTo($("#map"))
+        var object = map.level.find(hexagon => hexagon.id == id)
+        if (object != undefined) {
+            console.log("exists");
+            let id = object.id
+            var arrow = $("<img src='/static/img/arrow.png' class='arrow' id='arrow" + id + "'>")
+            $("#hexagon" + id).append(arrow)
+            var div = $("<div id='displayDiv" + id + "' class='displayDiv'>")
+            $("#hexagon" + id).append(div)
+            $("#displayDiv" + id).text(object.dirOut)
+            img.css("transform", "rotate(" + object.dirOut * 60 + "deg)")
+        }
     }
 }
