@@ -57,28 +57,38 @@ class Hex {
             img.css("transform", "rotate(" + entry.dirOut * 60 + "deg)")
             switch (entry.type) {
                 case "walls":
-                    console.log("1");
                     img.css("color", "black")
                     break
                 case "enemy":
-                    console.log("2");
                     img.css("color", "red")
                     break
                 case "treasure":
-                    console.log("3");
                     img.css("color", "green")
                     break
                 case "light":
-                    console.log("4");
                     img.css("color", "yellow")
                     break
             }
             displayBlock.innerText = JSON.stringify(map, null, 4)
         })
 
+        img.contextmenu(function (e) {
+            e.preventDefault()
+            var id = this.id.substr(7, this.id.length - 2)
+            var hexagon = map.level.find(hexagon => hexagon.id == id)
+            if (hexagon) {
+                var which = map.level.findIndex(el => el.id == hexagon.id)
+                console.log(which);
+                map.level.splice(which, 1)
+                displayBlock.innerText = JSON.stringify(map, null, 4)
+                $(this).remove()
+                new Hex(id, col, row, map, displayBlock)
+            }
+        })
+
         img.appendTo($("#map"))
         var object = map.level.find(hexagon => hexagon.id == id)
-        if (object != undefined) {
+        if (object != undefined) { // triggers when hexagon was loaded from server
             console.log("exists");
             let id = object.id
             var arrow = $("<img src='/static/img/arrow.png' class='arrow' id='arrow" + id + "'>")
@@ -89,19 +99,15 @@ class Hex {
             img.css("transform", "rotate(" + object.dirOut * 60 + "deg)")
             switch (object.type) {
                 case "walls":
-                    console.log("1");
                     img.css("color", "black")
                     break
                 case "enemy":
-                    console.log("2");
                     img.css("color", "red")
                     break
                 case "treasure":
-                    console.log("3");
                     img.css("color", "green")
                     break
                 case "light":
-                    console.log("4");
                     img.css("color", "yellow")
                     break
             }

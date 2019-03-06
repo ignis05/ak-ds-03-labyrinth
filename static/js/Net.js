@@ -29,7 +29,6 @@ class Net {
                 type: "POST",
                 success: data => {
                     var obj = JSON.parse(data)
-                    console.log(obj);
                     promise(obj)
                 },
                 error: (xhr, status, error) => {

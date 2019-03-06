@@ -23,7 +23,7 @@ function create() {
     }
 }
 
-function displayLoadedMap(){
+function displayLoadedMap() {
     $("#map").find(".hexagon").remove()
     var id = 0;
     for (let j = 0; j < map.size; j++) {
@@ -58,8 +58,9 @@ $(document).ready(() => {
     $("#btLoad").click(async function () {
         console.log("loading");
         var res = await net.loadlevel()
-        console.log(res);
+        let temp = map.typeOfNextHex //dont switch types
         map = res
+        map.typeOfNextHex = temp
         display.innerText = JSON.stringify(map, null, 4)
         displayLoadedMap()
     })
