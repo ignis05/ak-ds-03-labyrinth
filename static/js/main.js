@@ -24,7 +24,7 @@ function create() {
 }
 
 function displayLoadedMap(){
-    $("#map").find(".hexagon").remove()
+    $("#map").find(".hexagon").remove() //clears map
     var id = 0;
     for (let j = 0; j < map.size; j++) {
         for (let i = 0; i < map.size; i++) {
