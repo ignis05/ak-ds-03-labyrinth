@@ -93,3 +93,7 @@ button {
     display: block;
     width: 150px;
 }
+
+.btActive {
+    background:#3be407;
+}

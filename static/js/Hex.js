@@ -36,6 +36,7 @@ class Hex {
                         row: row,
                         dirOut: 0,
                         dirIn: 3,
+                        type: map.typeOfNextHex
                     }
                 )
                 entry = map.level.find(hexagon => hexagon.id == id)
@@ -44,12 +45,12 @@ class Hex {
                 console.log("exists - updating");
                 if (entry.dirOut == 5) {
                     entry.dirOut = 0
-                    entry.dirIn = 3
                 }
                 else {
                     entry.dirOut++
-                    entry.dirIn = (3 + entry.dirOut) % 6
                 }
+                entry.dirIn = (3 + entry.dirOut) % 6
+                entry.type = map.typeOfNextHex
             }
             console.log("dirin: " + entry.dirIn);
             $("#displayDiv" + id).text(entry.dirOut)
