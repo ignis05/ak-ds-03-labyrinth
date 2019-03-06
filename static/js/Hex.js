@@ -55,6 +55,24 @@ class Hex {
             console.log("dirin: " + entry.dirIn);
             $("#displayDiv" + id).text(entry.dirOut)
             img.css("transform", "rotate(" + entry.dirOut * 60 + "deg)")
+            switch (entry.type) {
+                case "walls":
+                    console.log("1");
+                    img.css("color", "black")
+                    break
+                case "enemy":
+                    console.log("2");
+                    img.css("color", "red")
+                    break
+                case "treasure":
+                    console.log("3");
+                    img.css("color", "green")
+                    break
+                case "light":
+                    console.log("4");
+                    img.css("color", "yellow")
+                    break
+            }
             displayBlock.innerText = JSON.stringify(map, null, 4)
         })
 
@@ -69,6 +87,24 @@ class Hex {
             $("#hexagon" + id).append(div)
             $("#displayDiv" + id).text(object.dirOut)
             img.css("transform", "rotate(" + object.dirOut * 60 + "deg)")
+            switch (object.type) {
+                case "walls":
+                    console.log("1");
+                    img.css("color", "black")
+                    break
+                case "enemy":
+                    console.log("2");
+                    img.css("color", "red")
+                    break
+                case "treasure":
+                    console.log("3");
+                    img.css("color", "green")
+                    break
+                case "light":
+                    console.log("4");
+                    img.css("color", "yellow")
+                    break
+            }
         }
     }
 }

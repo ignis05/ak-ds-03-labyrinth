@@ -55,7 +55,6 @@
     position: absolute;
     left: 51.25px;
     top: 36px;
-    color: black;
     font-size: 25px;
     font-weight: bold;
     width: 12.5px;
@@ -93,8 +92,24 @@ button {
     margin-top: 10px;
     display: block;
     width: 150px;
+    -webkit-text-stroke: 1px black;
+    letter-spacing: 5px;
+    font-size: 24px;
 }
 
 .btActive {
-    background:#3be407;
+    outline: 3px solid cyan;
+}
+
+#btWalls {
+    color: black;
+}
+#btEnemy {
+    color: red;
+}
+#btTreasure {
+    color: green;
+}
+#btLight {
+    color: yellow; 
 }
