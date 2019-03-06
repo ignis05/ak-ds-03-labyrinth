@@ -1,12 +1,15 @@
 class Net {
     constructor() { }
 
-    saveLevel(levelTable) {
+    saveLevel(mapObject) {
         console.log("saving level on server");
         return new Promise(promise => {
             $.ajax({
                 url: "/saveLevel",
-                data: { level: levelTable },
+                data: { 
+                    size: mapObject.size,
+                    level: mapObject.level
+                 },
                 type: "POST",
                 success: data => {
                     var obj = JSON.parse(data)

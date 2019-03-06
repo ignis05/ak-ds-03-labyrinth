@@ -3,7 +3,7 @@ var fs = require("fs");
 var qs = require("querystring")
 
 var serverDB = {
-    level: []
+    map:{}
 }
 
 var server = http.createServer(function (req, res) {
@@ -88,8 +88,9 @@ function saveLevel(req, res) {
         var finish = qs.parse(allData)
         //console.log(finish)
 
-        serverDB.level = finish
+        serverDB.map = finish
         console.log("level saved on server");
+        console.log(serverDB.map);
 
         var reply = true
         res.end(JSON.stringify(reply));
