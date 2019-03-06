@@ -32,6 +32,7 @@
     height: 1150px;
     background: #aaaaaa;
     white-space: pre;
+    overflow: auto;
 }
 
 .hexagon {
