@@ -2,8 +2,11 @@ var net = new Net()
 
 var display = null;
 
+var variables = {
+    typeOfNextHex: "walls"
+}
+
 var map = {
-    typeOfNextHex: "walls",
     size: null,
     level: [],
 }
@@ -17,7 +20,7 @@ function create() {
     map.level = []
     for (let j = 0; j < quantity; j++) {
         for (let i = 0; i < quantity; i++) {
-            new Hex(id, j, i, map, display)
+            new Hex(id, j, i, map, display, variables)
             id++
         }
     }
@@ -28,7 +31,7 @@ function displayLoadedMap() {
     var id = 0;
     for (let j = 0; j < map.size; j++) {
         for (let i = 0; i < map.size; i++) {
-            new Hex(id, j, i, map, display)
+            new Hex(id, j, i, map, display, variables.typeOfNextHex)
             id++
         }
     }
@@ -58,9 +61,7 @@ $(document).ready(() => {
     $("#btLoad").click(async function () {
         console.log("loading");
         var res = await net.loadlevel()
-        let temp = map.typeOfNextHex //dont switch types
         map = res
-        map.typeOfNextHex = temp
         display.innerText = JSON.stringify(map, null, 4)
         displayLoadedMap()
     })
@@ -71,7 +72,7 @@ $(document).ready(() => {
 
     $(".hexButton").click(function () {
         var type = this.id.slice(2).toLowerCase()
-        map.typeOfNextHex = type
+        variables.typeOfNextHex = type
         display.innerText = JSON.stringify(map, null, 4)
         $(".hexButton").removeClass("btActive")
         this.classList.add("btActive")

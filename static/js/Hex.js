@@ -1,5 +1,5 @@
 class Hex {
-    constructor(id, col, row, map, displayBlock) {
+    constructor(id, col, row, map, displayBlock, variables) {
         //#region config
         this.offset = 20
         this.spaces = 5
@@ -36,7 +36,7 @@ class Hex {
                         row: row,
                         dirOut: 0,
                         dirIn: 3,
-                        type: map.typeOfNextHex
+                        type: variables.typeOfNextHex
                     }
                 )
                 entry = map.level.find(hexagon => hexagon.id == id)
@@ -50,7 +50,7 @@ class Hex {
                     entry.dirOut++
                 }
                 entry.dirIn = (3 + entry.dirOut) % 6
-                entry.type = map.typeOfNextHex
+                entry.type = variables.typeOfNextHex
             }
             console.log("dirin: " + entry.dirIn);
             $("#displayDiv" + id).text(entry.dirOut)
