@@ -3,6 +3,7 @@ var net = new Net()
 var display = null;
 
 var map = {
+    typeOfNextHex: "walls",
     size: null,
     level: [],
 }
@@ -42,5 +43,18 @@ $(document).ready(() => {
         else {
             console.error("map saving error");
         }
+    })
+
+    // hex type changers
+    
+    //initial active:
+    $("#btWalls").addClass("btActive")
+
+    $(".hexButton").click(function () {
+        var type = this.id.slice(2).toLowerCase()
+        map.typeOfNextHex = type
+        display.innerText = JSON.stringify(map, null, 4)
+        $(".hexButton").removeClass("btActive")
+        this.classList.add("btActive")
     })
 })
