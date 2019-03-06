@@ -23,6 +23,17 @@ function create() {
     }
 }
 
+function displayLoadedMap(){
+    $("#map").find(".hexagon").remove()
+    var id = 0;
+    for (let j = 0; j < map.size; j++) {
+        for (let i = 0; i < map.size; i++) {
+            new Hex(id, j, i, map, display)
+            id++
+        }
+    }
+}
+
 
 $(document).ready(() => {
     console.log("document ready");
@@ -50,6 +61,7 @@ $(document).ready(() => {
         console.log(res);
         map = res
         display.innerText = JSON.stringify(map, null, 4)
+        displayLoadedMap()
     })
 
 
