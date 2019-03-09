@@ -47,25 +47,49 @@
 }
 
 .hexagon {
-    width: 115px;
-    height: 100px;
-    display: flex;
+    width: 100px;
+    height: 57.14px;
+    display: block;
     align-items: center;
     justify-content: center;
-    position: relative;
+    position: absolute;
+    cursor: pointer;
+    background: grey;
+}
+
+.hexagon .corner-1, .hexagon .corner-2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    overflow: hidden;
+    backface-visibility: hidden;
+}
+
+.hexagon .corner-1 {
+    transform: rotate(60deg);
+}
+
+.hexagon .corner-2 {
+    transform: rotate(-60deg);
 }
 
 .arrow {
-    height: 35%;
-    position: relative;
-    top: -25px;
-    transform: rotate(90deg)
+    height: 30px;
+    position: absolute;
+    top: -11px;
+    left: 19px;
+    transform: rotate(60deg)
 }
 
 .displayDiv {
+    transform: rotate(-30deg);
+    z-index: 20;
     position: absolute;
-    left: 51.25px;
-    top: 36px;
+    left: 44px;
+    top: 19px;
     font-size: 25px;
     font-weight: bold;
     width: 12.5px;
@@ -135,7 +159,7 @@ button {
     outline: 3px solid cyan;
 }
 
-.btActive:hover  {
+.btActive:hover {
     outline: 3px solid cyan;
 }
 

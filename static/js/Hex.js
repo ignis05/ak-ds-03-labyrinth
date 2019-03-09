@@ -1,21 +1,20 @@
 class Hex {
     constructor(id, col, row, map, displayBlock, variables) {
         //#region config
-        this.offset = 20
+        this.offsetTop = 40
+        this.offsetLeft = 20
         this.spaces = 5
         //#endregion
 
-        let img = $(`<div class='hexagon' id='hexagon${id}'>`)
+        var img = $(`<div class='hexagon' id='hexagon${id}'>`)
         img
-            .css("position", "absolute")
-            .css("background-image", "url('/static/img/hexagon.png')")
-            .css("background-size", "contain")
-            .css("left", ((86.25 + this.spaces + 1) * col) + this.offset)
+            .css("left", ((90 + this.spaces) * col) + this.offsetLeft)
+            .css("transform", "rotate(30deg)")
         if (col % 2 == 0) {
-            img.css("top", ((100 + this.spaces) * row) + this.offset)
+            img.css("top", ((100 + this.spaces) * row) + this.offsetTop)
         }
         else {
-            img.css("top", ((100 + this.spaces) * row + 50) + this.offset)
+            img.css("top", ((100 + this.spaces) * row + 53) + this.offsetTop)
         }
 
         img.click(function () {
@@ -54,19 +53,19 @@ class Hex {
             }
             console.log("dirin: " + entry.dirIn);
             $("#displayDiv" + id).text(entry.dirOut)
-            img.css("transform", "rotate(" + entry.dirOut * 60 + "deg)")
+            img.css("transform", "rotate(" + (30 + (entry.dirOut * 60)) + "deg)")
             switch (entry.type) {
                 case "walls":
-                    img.css("color", "black")
+                    img.css("background", "white")
                     break
                 case "enemy":
-                    img.css("color", "red")
+                    img.css("background", "red")
                     break
                 case "treasure":
-                    img.css("color", "blue")
+                    img.css("background", "blue")
                     break
                 case "light":
-                    img.css("color", "yellow")
+                    img.css("background", "yellow")
                     break
             }
             displayBlock.innerText = JSON.stringify(map, null, 4)
@@ -86,7 +85,11 @@ class Hex {
             }
         })
 
+        $("<div class='corner-1'>").appendTo(img)
+        $("<div class='corner-2'>").appendTo(img)
         img.appendTo($("#map"))
+
+
         var object = map.level.find(hexagon => hexagon.id == id)
         if (object != undefined) { // triggers when hexagon was loaded from server
             console.log("exists");
@@ -96,19 +99,19 @@ class Hex {
             var div = $("<div id='displayDiv" + id + "' class='displayDiv'>")
             $("#hexagon" + id).append(div)
             $("#displayDiv" + id).text(object.dirOut)
-            img.css("transform", "rotate(" + object.dirOut * 60 + "deg)")
+            img.css("transform", "rotate(" + (30 + (object.dirOut * 60)) + "deg)")
             switch (object.type) {
                 case "walls":
-                    img.css("color", "black")
+                    img.css("background", "white")
                     break
                 case "enemy":
-                    img.css("color", "red")
+                    img.css("background", "red")
                     break
                 case "treasure":
-                    img.css("color", "blue")
+                    img.css("background", "blue")
                     break
                 case "light":
-                    img.css("color", "yellow")
+                    img.css("background", "yellow")
                     break
             }
         }
