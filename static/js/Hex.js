@@ -81,7 +81,7 @@ class Hex {
                 map.level.splice(which, 1)
                 displayBlock.innerText = JSON.stringify(map, null, 4)
                 $(this).remove()
-                new Hex(id, col, row, map, displayBlock)
+                new Hex(id, col, row, map, displayBlock, variables)
             }
         })
 
