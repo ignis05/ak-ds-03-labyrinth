@@ -47,8 +47,8 @@
 }
 
 .hexagon {
-    width: 100px;
-    height: 57.14px;
+    width: 57.14px;
+    height: 100px;
     display: block;
     align-items: center;
     justify-content: center;
@@ -78,18 +78,18 @@
 
 .arrow {
     height: 30px;
+    width: 30px;
     position: absolute;
-    top: -11px;
-    left: 19px;
-    transform: rotate(60deg)
+    top: 2px;
+    left: 13.57px;
+    transform: rotate(90deg)
 }
 
 .displayDiv {
-    transform: rotate(-30deg);
     z-index: 20;
     position: absolute;
-    left: 44px;
-    top: 19px;
+    left: 22.32px;
+    top: 36px;
     font-size: 25px;
     font-weight: bold;
     width: 12.5px;

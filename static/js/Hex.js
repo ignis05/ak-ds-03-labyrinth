@@ -1,15 +1,15 @@
 class Hex {
     constructor(id, col, row, map, displayBlock, variables) {
         //#region config
-        this.offsetTop = 40
-        this.offsetLeft = 20
+        this.offsetTop = 20
+        this.offsetLeft = 40
         this.spaces = 5
         //#endregion
 
         var img = $(`<div class='hexagon' id='hexagon${id}'>`)
         img
             .css("left", ((90 + this.spaces) * col) + this.offsetLeft)
-            .css("transform", "rotate(30deg)")
+            //.css("transform", "rotate(30deg)")
         if (col % 2 == 0) {
             img.css("top", ((100 + this.spaces) * row) + this.offsetTop)
         }
@@ -53,7 +53,7 @@ class Hex {
             }
             console.log("dirin: " + entry.dirIn);
             $("#displayDiv" + id).text(entry.dirOut)
-            img.css("transform", "rotate(" + (30 + (entry.dirOut * 60)) + "deg)")
+            img.css("transform", "rotate(" + ( (entry.dirOut * 60)) + "deg)")
             switch (entry.type) {
                 case "walls":
                     img.css("background", "white")
@@ -99,7 +99,7 @@ class Hex {
             var div = $("<div id='displayDiv" + id + "' class='displayDiv'>")
             $("#hexagon" + id).append(div)
             $("#displayDiv" + id).text(object.dirOut)
-            img.css("transform", "rotate(" + (30 + (object.dirOut * 60)) + "deg)")
+            img.css("transform", "rotate(" + ( (object.dirOut * 60)) + "deg)")
             switch (object.type) {
                 case "walls":
                     img.css("background", "white")
