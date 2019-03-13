@@ -9,7 +9,7 @@ class Hex {
         var img = $(`<div class='hexagon' id='hexagon${id}'>`)
         img
             .css("left", ((90 + this.spaces) * col) + this.offsetLeft)
-            //.css("transform", "rotate(30deg)")
+        //.css("transform", "rotate(30deg)")
         if (col % 2 == 0) {
             img.css("top", ((100 + this.spaces) * row) + this.offsetTop)
         }
@@ -53,7 +53,7 @@ class Hex {
             }
             console.log("dirin: " + entry.dirIn[0]);
             $("#displayDiv" + id).text(entry.dirOut)
-            img.css("transform", "rotate(" + ( (entry.dirOut * 60)) + "deg)")
+            img.css("transform", "rotate(" + ((entry.dirOut * 60)) + "deg)")
             switch (entry.type) {
                 case "walls":
                     img.css("background", "white")
@@ -68,6 +68,7 @@ class Hex {
                     img.css("background", "yellow")
                     break
             }
+            Hex.correctDirIns(map)
             displayBlock.innerText = JSON.stringify(map, null, 4)
         })
 
@@ -79,6 +80,7 @@ class Hex {
                 var which = map.level.findIndex(el => el.id == hexagon.id)
                 console.log(which);
                 map.level.splice(which, 1)
+                Hex.correctDirIns(map)
                 displayBlock.innerText = JSON.stringify(map, null, 4)
                 $(this).remove()
                 new Hex(id, col, row, map, displayBlock, variables)
@@ -99,7 +101,7 @@ class Hex {
             var div = $("<div id='displayDiv" + id + "' class='displayDiv'>")
             $("#hexagon" + id).append(div)
             $("#displayDiv" + id).text(object.dirOut)
-            img.css("transform", "rotate(" + ( (object.dirOut * 60)) + "deg)")
+            img.css("transform", "rotate(" + ((object.dirOut * 60)) + "deg)")
             switch (object.type) {
                 case "walls":
                     img.css("background", "white")
@@ -115,5 +117,35 @@ class Hex {
                     break
             }
         }
+    }
+    static correctDirIns(map) {
+        console.log("correcting dirIns");
+        console.log(map);
+        map.level.forEach(hexagon => {
+            hexagon.dirIn = []
+            var neighbors = []
+            if (hexagon.col % 2 == 0) { //diffrent row heights
+                neighbors.push(map.level.find(hex => (hex.row == hexagon.row - 1) && (hex.col == hexagon.col)))     //0
+                neighbors.push(map.level.find(hex => (hex.row == hexagon.row - 1) && (hex.col == hexagon.col + 1))) //1
+                neighbors.push(map.level.find(hex => (hex.row == hexagon.row) && (hex.col == hexagon.col + 1)))     //2
+                neighbors.push(map.level.find(hex => (hex.row == hexagon.row + 1) && (hex.col == hexagon.col)))     //3
+                neighbors.push(map.level.find(hex => (hex.row == hexagon.row) && (hex.col == hexagon.col - 1)))     //4
+                neighbors.push(map.level.find(hex => (hex.row == hexagon.row - 1) && (hex.col == hexagon.col - 1))) //5
+            }
+            else {
+                neighbors.push(map.level.find(hex => (hex.row == hexagon.row - 1) && (hex.col == hexagon.col)))     //0
+                neighbors.push(map.level.find(hex => (hex.row == hexagon.row) && (hex.col == hexagon.col + 1)))     //1
+                neighbors.push(map.level.find(hex => (hex.row == hexagon.row + 1) && (hex.col == hexagon.col + 1))) //2
+                neighbors.push(map.level.find(hex => (hex.row == hexagon.row + 1) && (hex.col == hexagon.col)))     //3
+                neighbors.push(map.level.find(hex => (hex.row == hexagon.row + 1) && (hex.col == hexagon.col - 1))) //4
+                neighbors.push(map.level.find(hex => (hex.row == hexagon.row) && (hex.col == hexagon.col - 1)))     //5
+            }
+            console.log(neighbors);
+            for (let i in neighbors) {
+                if (neighbors[i] && (neighbors[i].dirOut + 3) % 6 == i) {
+                    hexagon.dirIn.push(parseInt(i))
+                }
+            }
+        });
     }
 }

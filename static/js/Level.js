@@ -21,12 +21,12 @@ class Level {
         for (var location of this.map.level) {
             let model = new Hex3D(location)
             scene.add(model)
-            model.position.x = Settings.radius * 2 * location.row
-            if (location.row % 2 == 0) {
-                model.position.z = ((Settings.radius * 2) * location.col)
+            model.position.x = Settings.hexSpaces * 2 * location.col
+            if (location.col % 2 == 0) {
+                model.position.z = ((Settings.hexSpaces * 2) * location.row)
             }
             else {
-                model.position.z = ((Settings.radius * 2) * location.col + Settings.radius)
+                model.position.z = ((Settings.hexSpaces * 2) * location.row + Settings.hexSpaces * 1.1)
             }
             this.hexagons.push(model)
         }
