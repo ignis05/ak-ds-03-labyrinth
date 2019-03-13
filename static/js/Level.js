@@ -5,7 +5,7 @@ class Level {
         this.net.loadlevel().then(map => {
             this.map = map
             console.log(this.map);
-            if(this.map.level){
+            if (this.map.level) {
                 this.create()
             }
             else {
@@ -15,7 +15,8 @@ class Level {
         })
     }
 
-    create(){
+    create() {
         console.log("creating level");
+        scene.add(new Hex3D())
     }
 }
