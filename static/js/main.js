@@ -69,6 +69,10 @@ $(document).ready(() => {
         }, 2000)
     })
 
+    $("#btRender").click(async function () {
+        window.location = "/game"
+    })
+
 
     // hex type changers
     $("#btWalls").addClass("btActive") //initial active:

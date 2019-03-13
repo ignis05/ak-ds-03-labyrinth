@@ -12,7 +12,7 @@ var server = http.createServer(function (req, res) {
             console.log(`requested adres: ${decodeURI(req.url)}`)
             var fileEXTEN = req.url.split(".")[req.url.split(".").length - 1]
             if (req.url == "/") {
-                fs.readFile(`static/index.html`, function (error, data) {
+                fs.readFile(`./static/html/index.html`, function (error, data) {
                     if (error) {
                         res.writeHead(404, { 'Content-Type': 'text/html;charset=utf-8' });
                         res.write("<h1>błąd 404 - nie ma pliku!<h1>");
@@ -22,7 +22,22 @@ var server = http.createServer(function (req, res) {
                         res.writeHead(200, { 'Content-Type': 'text/html;;charset=utf-8' });
                         res.write(data);
                         res.end();
-                        console.log("send index");
+                        console.log("sent index");
+                    }
+                })
+            }
+            else if (req.url == "/game") {
+                fs.readFile(`./static/html/game.html`, function (error, data) {
+                    if (error) {
+                        res.writeHead(404, { 'Content-Type': 'text/html;charset=utf-8' });
+                        res.write("<h1>błąd 404 - nie ma pliku!<h1>");
+                        res.end();
+                    }
+                    else {
+                        res.writeHead(200, { 'Content-Type': 'text/html;;charset=utf-8' });
+                        res.write(data);
+                        res.end();
+                        console.log("sent game");
                     }
                 })
             }
@@ -59,7 +74,7 @@ var server = http.createServer(function (req, res) {
                         }
                         res.write(data);
                         res.end();
-                        console.log(`send file: ${decodeURI(req.url)}`)
+                        console.log(`sent file: ${decodeURI(req.url)}`)
                     }
                 });
             }
