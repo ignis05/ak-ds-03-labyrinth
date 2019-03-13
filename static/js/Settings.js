@@ -7,7 +7,7 @@ var Settings = {
         // hexWallmaterial: new THREE.MeshBasicMaterial({ color: 0x00ff00 }),
         this.hexDoorsgeometry = new THREE.BoxGeometry(this.radius * 0.4, this.height, this.radius * 0.1)
         this.hexDoorsmaterial = new THREE.MeshNormalMaterial()
-        this.hexSpaces = this.radius * 0.8
+        this.hexSpaces = this.radius * Math.sqrt(3) / 2
     },
 }
 Settings.create()
