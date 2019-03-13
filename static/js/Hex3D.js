@@ -2,7 +2,7 @@ class Hex3D {
 
     constructor() {
 
-
+        console.log("creating hex");
         var radius = Settings.radius
 
         var container = new THREE.Object3D() // kontener na obiekty 3D
@@ -11,13 +11,13 @@ class Hex3D {
 
         for (var i = 0; i < 6; i++) {
             var side = wall.clone()
-            side.position.x = radius * Math.sin(Math.PI / 3 * i)
-            side.position.y =0
-            side.position.z = radius * Math.cos(Math.PI / 3 * i)
+            side.position.x = (radius * Math.sqrt(3) / 2) * Math.sin(Math.PI / 3 * i)
+            side.position.y = 0
+            side.position.z = (radius * Math.sqrt(3) / 2) * Math.cos(Math.PI / 3 * i)
             side.lookAt(container.position) // nakierowanie ścian na środek kontenera 3D  
             container.add(side)
         }
-        container.position.y = radius /2
+        container.position.y = radius / 2
         return container
     }
 }

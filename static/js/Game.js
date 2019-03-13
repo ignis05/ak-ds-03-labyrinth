@@ -1,4 +1,5 @@
 var scene;
+var render;
 $(document).ready(function () {
 
     // #region initial
@@ -19,7 +20,7 @@ $(document).ready(function () {
     camera.position.set(300, 100, 300)
     camera.lookAt(scene.position)
 
-    var renderer = new THREE.WebGLRenderer();
+    renderer = new THREE.WebGLRenderer();
     renderer.setClearColor(0xffffff);
     renderer.setSize($(window).width(), $(window).height());
 

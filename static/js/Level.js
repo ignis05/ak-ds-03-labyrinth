@@ -17,6 +17,20 @@ class Level {
 
     create() {
         console.log("creating level");
-        scene.add(new Hex3D())
+        var models = []
+        console.log(this.map.level);
+        for (let j = 0; j < this.map.size; j++) {
+            for (let i = 0; i < this.map.size; i++) {
+                let model = new Hex3D()
+                scene.add(model)
+                model.position.x = Settings.radius * 2 * j
+                if (j % 2 == 0) {
+                    model.position.z = ((Settings.radius * 2) * i)
+                }
+                else {
+                    model.position.z = ((Settings.radius * 2) * i + Settings.radius)
+                }
+            }
+        }
     }
 }
