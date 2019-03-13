@@ -7,7 +7,7 @@ class Hex3D {
 
         var container = new THREE.Object3D() // kontener na obiekty 3D
 
-        var wall = new THREE.Mesh(Settings.hexWallgeometry, Settings.hexWallmaterial);
+        var wall = new THREE.Mesh(Settings.hexWallGeometry, Settings.hexWallMaterial);
 
         console.log(location.dirOut, location.dirIn);
         for (var i = 0; i < 6; i++) {
