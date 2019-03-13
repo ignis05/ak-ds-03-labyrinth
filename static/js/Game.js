@@ -1,4 +1,4 @@
-var scene
+var scene;
 $(document).ready(function () {
 
     // #region initial
@@ -33,7 +33,7 @@ $(document).ready(function () {
         renderer.render(scene, camera)
     });
 
-
+    new Level()
 
     function render() {
         requestAnimationFrame(render);
