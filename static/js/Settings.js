@@ -1,7 +1,12 @@
 var Settings = {
     radius: 100,
-    hexWallgeometry: new THREE.BoxGeometry(100, 100, 10),
-    hexWallmaterial: new THREE.MeshNormalMaterial(),
-    // hexWallmaterial: new THREE.MeshBasicMaterial({ color: 0x00ff00 }),
+    height: 100,
+    create() {
+        this.hexWallgeometry = new THREE.BoxGeometry(this.radius, this.height, this.radius * 0.1)
+        this.hexWallmaterial = new THREE.MeshNormalMaterial()
+        // hexWallmaterial: new THREE.MeshBasicMaterial({ color: 0x00ff00 }),
+        this.hexDoorsgeometry = new THREE.BoxGeometry(this.radius * 0.4, this.height, this.radius * 0.1)
+        this.hexDoorsmaterial = new THREE.MeshNormalMaterial()
+    },
 }
-console.log(Settings.radius);
+Settings.create()
