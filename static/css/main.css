@@ -70,10 +70,12 @@
 
 .hexagon .corner-1 {
     transform: rotate(60deg);
+    /* background: red; */
 }
 
 .hexagon .corner-2 {
     transform: rotate(-60deg);
+    /* background: blue; */
 }
 
 .arrow {
