@@ -34,7 +34,7 @@ class Hex {
                         col: col,
                         row: row,
                         dirOut: 0,
-                        dirIn: 3,
+                        dirIn: [3,],
                         type: variables.typeOfNextHex
                     }
                 )
@@ -48,10 +48,10 @@ class Hex {
                 else {
                     entry.dirOut++
                 }
-                entry.dirIn = (3 + entry.dirOut) % 6
+                entry.dirIn[0] = (3 + entry.dirOut) % 6
                 entry.type = variables.typeOfNextHex
             }
-            console.log("dirin: " + entry.dirIn);
+            console.log("dirin: " + entry.dirIn[0]);
             $("#displayDiv" + id).text(entry.dirOut)
             img.css("transform", "rotate(" + ( (entry.dirOut * 60)) + "deg)")
             switch (entry.type) {

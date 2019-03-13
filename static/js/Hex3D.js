@@ -10,11 +10,15 @@ class Hex3D {
         var wall = new THREE.Mesh(Settings.hexWallgeometry, Settings.hexWallmaterial);
 
         for (var i = 0; i < 6; i++) {
-            if (i != location.dirOut) {
-                var side = wall.clone()
+            console.log(location.dirOut, location.dirIn);
+            if (i == location.dirOut) {
+                var side = new Doors()
+            }
+            else if (location.dirIn.includes(i)) {
+                continue
             }
             else {
-                var side = new Doors()
+                var side = wall.clone()
             }
             side.position.x = (radius * Math.sqrt(3) / 2) * Math.sin(Math.PI / 3 * i)
             side.position.y = 0
