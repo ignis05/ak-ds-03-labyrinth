@@ -20,7 +20,7 @@ $(document).ready(function () {
     camera.position.set(300, 100, 300)
     camera.lookAt(scene.position)
 
-    renderer = new THREE.WebGLRenderer();
+    renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setClearColor(0xffffff);
     renderer.setSize($(window).width(), $(window).height());
     //shadows
@@ -37,7 +37,11 @@ $(document).ready(function () {
         renderer.render(scene, camera)
     });
 
-    new Level()
+    let uiFunctions = ["lights"]
+    var ui = new UI(uiFunctions)
+
+    new Level(ui)
+
 
     function render() {
         requestAnimationFrame(render);

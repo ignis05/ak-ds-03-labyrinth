@@ -1,5 +1,5 @@
 class Hex3D {
-    constructor(location) {
+    constructor(location, ui) {
         console.log("creating hex");
         var radius = Settings.radius
 
@@ -33,8 +33,10 @@ class Hex3D {
         //floor.receiveShadow = true;
         container.add(floor)
 
-        if(location.type == "light"){
-            container.add(new Light())
+        if (location.type == "light") {
+            let light = new Light()
+            container.add(light.container)
+            ui.lights.push(light)
         }
 
         container.position.y = Settings.height / 2
