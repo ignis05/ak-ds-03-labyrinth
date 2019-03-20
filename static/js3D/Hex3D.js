@@ -21,12 +21,16 @@ class Hex3D {
             else {
                 var side = wall.clone()
             }
-            side.position.x = -(radius * Math.sqrt(3) / 2) * Math.sin((Math.PI / 3 * i)+Math.PI)
+            side.position.x = -(radius * Math.sqrt(3) / 2) * Math.sin((Math.PI / 3 * i) + Math.PI)
             side.position.y = 0
-            side.position.z = (radius * Math.sqrt(3) / 2) * Math.cos((Math.PI / 3 * i)+Math.PI)
+            side.position.z = (radius * Math.sqrt(3) / 2) * Math.cos((Math.PI / 3 * i) + Math.PI)
             side.lookAt(container.position) // nakierowanie ścian na środek kontenera 3D  
             container.add(side)
         }
+        var floor = new THREE.Mesh(Settings.hexFloorGeometry, Settings.hexWallMaterial)
+        floor.rotation.y = Math.PI / 2
+        floor.position.y = -Settings.height / 2
+        container.add(floor)
         container.position.y = Settings.height / 2
         return container
     }
