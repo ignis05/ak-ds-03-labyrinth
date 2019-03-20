@@ -6,8 +6,9 @@ class UI {
     }
     controlLights() {
         this.lights = []
-        this.lightsHeight = $("<input type='range' id='lightsHeight' class='lightsControler'>")
-        this.lightsIntensity = $("<input type='range' id='lightsIntensity' class='lightsControler' min='0' max='10' step='0.1'>")
+        this.lightsHeight = $("<input type='range' id='lightsHeight' class='lightsControler' min='-50' max='300' step='5'>")
+        this.lightsIntensity = $("<input type='range' id='lightsIntensity' class='lightsControler' min='0' max='5' step='0.01' initial='1'>")
+        this.lightsIntensity.val(1)
         this.lightContainer = $("<div id='lightsControls'>")
         $("body").append(this.lightContainer)
         this.lightContainer
