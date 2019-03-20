@@ -16,6 +16,14 @@ var Settings = {
             color: 0xffff00,
             wireframe: true,
         })
+        this.TreasureGeometry = new THREE.BoxGeometry(this.radius/2, this.radius/2, this.radius/2);
+        this.TreasureMaterial = [];
+        this.TreasureMaterial.push(new THREE.MeshPhongMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('/static/textures/side.jpg') }));
+        this.TreasureMaterial.push(new THREE.MeshPhongMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('/static/textures/side.jpg') }));
+        this.TreasureMaterial.push(new THREE.MeshPhongMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('/static/textures/top.jpg') }));
+        this.TreasureMaterial.push(new THREE.MeshPhongMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('/static/textures/bottom.jpg') }));
+        this.TreasureMaterial.push(new THREE.MeshPhongMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('/static/textures/side.jpg') }));
+        this.TreasureMaterial.push(new THREE.MeshPhongMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('/static/textures/side.jpg') }));
     },
 }
 Settings.create()
