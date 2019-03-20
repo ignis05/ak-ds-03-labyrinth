@@ -23,6 +23,9 @@ $(document).ready(function () {
     renderer = new THREE.WebGLRenderer();
     renderer.setClearColor(0xffffff);
     renderer.setSize($(window).width(), $(window).height());
+    //shadows
+    //renderer.shadowMap.enabled = true
+    //renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     $("#root").append(renderer.domElement);
     // #endregion initial
