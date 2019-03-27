@@ -83,11 +83,7 @@ $(document).ready(async function () {
 
         if (intersects.length > 0) {
             clickedVect = intersects[0].point
-            // console.log(clickedVect)
             directionVect = clickedVect.clone().sub(player.getPlayerCont().position).normalize()
-            // console.log(directionVect)
-            //funkcja normalize() przelicza współrzędne x,y,z wektora na zakres 0-1
-            //jest to wymagane przez kolejne funkcje
             var angle = Math.atan2(
                 player.getPlayerCont().position.clone().x - clickedVect.x,
                 player.getPlayerCont().position.clone().z - clickedVect.z
@@ -114,7 +110,6 @@ $(document).ready(async function () {
     var camAngle = 0
 
     document.addEventListener("keydown", e => {
-        console.log(e.code);
         switch (e.code) {
             case "KeyA": case "ArrowLeft":
                 camLeft = true
@@ -125,7 +120,6 @@ $(document).ready(async function () {
         }
     })
     document.addEventListener("keyup", e => {
-        console.log(e.code);
         switch (e.code) {
             case "KeyA": case "ArrowLeft":
                 camLeft = false
