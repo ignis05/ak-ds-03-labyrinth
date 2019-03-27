@@ -50,6 +50,7 @@ $(document).ready(async function () {
     // player
     var playerModel = new Model()
     var playerModelContainer = await playerModel.loadModel("/static/models/skeleton_armed.json", "/static/textures/skeleton_blue.png")
+    playerModel.setAnimation("stand")
 
     var player = new Player(playerModelContainer)
     player.addTo(scene)
@@ -68,7 +69,7 @@ $(document).ready(async function () {
 
     function movePlayer() {
         // console.log(~~player.getPlayerCont().position.clone().distanceTo(clickedVect))
-        if (~~player.getPlayerCont().position.clone().distanceTo(clickedVect) > 10) {
+        if (~~player.getPlayerCont().position.clone().distanceTo(clickedVect) > 5) {
             player.getPlayerCont().translateOnAxis(directionVect, 2)
             player.getPlayerCont().position.y = 0
 
@@ -76,10 +77,14 @@ $(document).ready(async function () {
             camera.position.z = player.getPlayerCont().position.z + (200 * Math.cos(camAngle))
             camera.lookAt(player.getPlayerCont().position)
         }
+        else { //on arrive
+            playerModel.setAnimation("stand")
+        }
     }
 
 
     function movePlayerEnable(event) {
+        playerModel.setAnimation("run")
         mouseVector.x = (event.clientX / $(window).width()) * 2 - 1
         mouseVector.y = -(event.clientY / $(window).height()) * 2 + 1
         raycaster.setFromCamera(mouseVector, camera);
@@ -147,9 +152,13 @@ $(document).ready(async function () {
     }
     // #endregion camera movement
 
+    var clock = new THREE.Clock();
+
     function render() {
         movePlayer()
         rotateCamera()
+
+        playerModel.updateModel(clock)
 
         renderer.render(scene, camera);
         requestAnimationFrame(render);
