@@ -46,7 +46,12 @@ $(document).ready(async function () {
     var map = await net.loadlevel()
     var level = new Level(ui, map)
 
-    var player = new Player()
+
+    // player
+    var playerModel = new Model()
+    var playerModelContainer = await playerModel.loadModel("/static/models/skeleton_armed.json", "/static/textures/skeleton_blue.png")
+
+    var player = new Player(playerModelContainer)
     player.addTo(scene)
     player.getPlayerCont().position.x = level.hexagons[0].position.x
     player.getPlayerCont().position.z = level.hexagons[0].position.z
@@ -88,7 +93,7 @@ $(document).ready(async function () {
                 player.getPlayerCont().position.clone().x - clickedVect.x,
                 player.getPlayerCont().position.clone().z - clickedVect.z
             )
-            player.getPlayerMesh().rotation.y = Math.PI + angle
+            player.getPlayerMesh().rotation.y = Math.PI * 1.5 + angle
         }
     }
 
