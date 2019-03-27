@@ -18,14 +18,16 @@ var Settings = {
         })
         this.TreasureGeometry = new THREE.BoxGeometry(this.radius / 2, this.radius / 2, this.radius / 2);
         this.TreasureMaterial = [];
-        this.TreasureMaterial.push(new THREE.MeshPhongMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('/static/textures/side.jpg') }));
-        this.TreasureMaterial.push(new THREE.MeshPhongMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('/static/textures/side.jpg') }));
-        this.TreasureMaterial.push(new THREE.MeshPhongMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('/static/textures/top.jpg') }));
-        this.TreasureMaterial.push(new THREE.MeshPhongMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('/static/textures/bottom.jpg') }));
-        this.TreasureMaterial.push(new THREE.MeshPhongMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('/static/textures/side.jpg') }));
-        this.TreasureMaterial.push(new THREE.MeshPhongMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('/static/textures/side.jpg') }));
+        this.TreasureMaterial.push(new THREE.MeshPhongMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('/static/textures/emerald_block.png') }));
+        this.TreasureMaterial.push(new THREE.MeshPhongMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('/static/textures/emerald_block.png') }));
+        this.TreasureMaterial.push(new THREE.MeshPhongMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('/static/textures/emerald_block.png') }));
+        this.TreasureMaterial.push(new THREE.MeshPhongMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('/static/textures/emerald_block.png') }));
+        this.TreasureMaterial.push(new THREE.MeshPhongMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('/static/textures/emerald_block.png') }));
+        this.TreasureMaterial.push(new THREE.MeshPhongMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('/static/textures/emerald_block.png') }));
     },
     playerMaterial: new THREE.MeshBasicMaterial({ color: 0x0000ff, wireframe: true }),
     playerGeometry: new THREE.BoxGeometry(50, 50, 50, 5, 5, 5),
+    playerMaterialURL: "/static/textures/skeleton_blue.png",
+    playerGeometryURL: "/static/models/skeleton_armed.json",
 }
 Settings.create()

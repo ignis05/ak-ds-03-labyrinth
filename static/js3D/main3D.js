@@ -49,7 +49,7 @@ $(document).ready(async function () {
 
     // player
     var playerModel = new Model()
-    var playerModelContainer = await playerModel.loadModel("/static/models/skeleton_armed.json", "/static/textures/skeleton_blue.png")
+    var playerModelContainer = await playerModel.loadModel(Settings.playerGeometryURL, Settings.playerMaterialURL)
     playerModel.setAnimation("stand")
 
     var player = new Player(playerModelContainer)
