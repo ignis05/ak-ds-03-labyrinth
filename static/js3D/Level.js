@@ -1,20 +1,17 @@
 class Level {
-    constructor(ui) {
+    constructor(ui, map) {
         this.ui = ui
-        this.net = new Net()
         this.map = null
         this.hexagons = []
-        this.net.loadlevel().then(map => {
-            this.map = map
-            console.log(this.map);
-            if (this.map.level) {
-                this.create()
-            }
-            else {
-                window.alert("no map found on server")
-                window.location = "/"
-            }
-        })
+        this.map = map
+        console.log(this.map);
+        if (this.map.level) {
+            this.create()
+        }
+        else {
+            window.alert("no map found on server")
+            window.location = "/"
+        }
     }
 
     create() {

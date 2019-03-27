@@ -1,6 +1,6 @@
 var scene;
 var render;
-$(document).ready(function () {
+$(document).ready(async function () {
 
     // #region initial
     $(window).on("resize", () => {
@@ -17,7 +17,8 @@ $(document).ready(function () {
         0.1,    // minimalna renderowana odległość
         10000    // maxymalna renderowana odległość od kamery 
     );
-    camera.position.set(300, 100, 300)
+    // camera.position.set(300, 100, 300)
+    camera.position.set(0, 1500, 0)
     camera.lookAt(scene.position)
 
     renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -33,19 +34,85 @@ $(document).ready(function () {
     let grid = new Grid(2500)
     grid.addTo(scene)
 
-    var orbitControl = new THREE.OrbitControls(camera, renderer.domElement);
-    orbitControl.addEventListener('change', function () {
-        renderer.render(scene, camera)
-    });
+    // var orbitControl = new THREE.OrbitControls(camera, renderer.domElement);
+    // orbitControl.addEventListener('change', function () {
+    //     renderer.render(scene, camera)
+    // });
 
     let uiFunctions = ["lights"]
     var ui = new UI(uiFunctions)
 
-    new Level(ui)
+    var net = new Net()
+    var map = await net.loadlevel()
+    var level = new Level(ui, map)
 
+    var player = new Player()
+    player.addTo(scene)
+    player.getPlayerCont().position.x = level.hexagons[0].position.x
+    player.getPlayerCont().position.z = level.hexagons[0].position.z
+
+    // raycaster
+    var raycaster = new THREE.Raycaster(); // obiekt symulujący "rzucanie" promieni
+    var mouseVector = new THREE.Vector2() // ten wektor czyli pozycja w przestrzeni 2D na ekranie(x,y) wykorzystany będzie do określenie pozycji myszy na ekranie a potem przeliczenia na pozycje 3D
+
+    // wektory
+    var clickedVect = new THREE.Vector3(0, 0, 0); // wektor określający PUNKT kliknięcia
+    var directionVect = new THREE.Vector3(0, 0, 0); // wektor określający KIERUNEK ruchu playera
+
+
+    // #region player movement
+
+    function movePlayer() {
+        console.log(~~player.getPlayerCont().position.clone().distanceTo(clickedVect))
+        if (~~player.getPlayerCont().position.clone().distanceTo(clickedVect) > 10) {
+            player.getPlayerCont().translateOnAxis(directionVect, 5)
+            player.getPlayerCont().position.y = 0
+
+            // camera.position.x = player.getPlayerCont().position.x + 200
+            // camera.position.z = player.getPlayerCont().position.z + 200
+            // camera.lookAt(player.getPlayerCont().position)
+        }
+    }
+
+
+    function movePlayerEnable(event) {
+        mouseVector.x = (event.clientX / $(window).width()) * 2 - 1
+        mouseVector.y = -(event.clientY / $(window).height()) * 2 + 1
+        raycaster.setFromCamera(mouseVector, camera);
+
+        var intersects = raycaster.intersectObjects(scene.children);
+
+        if (intersects.length > 0) {
+            clickedVect = intersects[0].point
+            console.log(clickedVect)
+            directionVect = clickedVect.clone().sub(player.getPlayerCont().position).normalize()
+            console.log(directionVect)
+            //funkcja normalize() przelicza współrzędne x,y,z wektora na zakres 0-1
+            //jest to wymagane przez kolejne funkcje
+            var angle = Math.atan2(
+                player.getPlayerCont().position.clone().x - clickedVect.x,
+                player.getPlayerCont().position.clone().z - clickedVect.z
+            )
+            player.getPlayerMesh().rotation.y = Math.PI + angle
+        }
+    }
+
+    $(document).mousedown(event => {
+        movePlayerEnable(event)
+        $(document).on("mousemove", event => {
+            movePlayerEnable(event)
+        })
+        $(document).mouseup(event => {
+            $(document).off("mousemove")
+        })
+    })
+
+    // #endregion player movement
 
     function render() {
-        requestAnimationFrame(render);
+        movePlayer()
+
         renderer.render(scene, camera);
+        requestAnimationFrame(render);
     } render()
 })

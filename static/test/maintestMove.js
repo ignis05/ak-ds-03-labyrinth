@@ -55,6 +55,13 @@ $(document).ready(function () {
     point.position.y = -10
 
     function render() {
+        movePlayer()
+
+        renderer.render(scene, camera);
+        requestAnimationFrame(render);
+    } render()
+
+    function movePlayer() {
         console.log(~~player.getPlayerCont().position.clone().distanceTo(clickedVect))
         if (~~player.getPlayerCont().position.clone().distanceTo(clickedVect) > 10) {
             player.getPlayerCont().translateOnAxis(directionVect, 5)
@@ -64,13 +71,10 @@ $(document).ready(function () {
             camera.position.z = player.getPlayerCont().position.z + 200
             camera.lookAt(player.getPlayerCont().position)
         }
-
-        renderer.render(scene, camera);
-        requestAnimationFrame(render);
-    } render()
+    }
 
 
-    function movePlayer(event) {
+    function movePlayerEnable(event) {
         mouseVector.x = (event.clientX / $(window).width()) * 2 - 1
         mouseVector.y = -(event.clientY / $(window).height()) * 2 + 1
         raycaster.setFromCamera(mouseVector, camera);
@@ -96,9 +100,9 @@ $(document).ready(function () {
     }
 
     $(document).mousedown(event => {
-        movePlayer(event)
+        movePlayerEnable(event)
         $(document).on("mousemove", event => {
-            movePlayer(event)
+            movePlayerEnable(event)
         })
         $(document).mouseup(event => {
             $(document).off("mousemove")
