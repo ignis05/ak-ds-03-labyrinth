@@ -18,7 +18,7 @@ $(document).ready(async function () {
         10000    // maxymalna renderowana odległość od kamery 
     );
     // camera.position.set(300, 100, 300)
-    camera.position.set(0, 1500, 0)
+    camera.position.set(0, 500, 0)
     camera.lookAt(scene.position)
 
     renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -59,18 +59,17 @@ $(document).ready(async function () {
     var clickedVect = new THREE.Vector3(0, 0, 0); // wektor określający PUNKT kliknięcia
     var directionVect = new THREE.Vector3(0, 0, 0); // wektor określający KIERUNEK ruchu playera
 
-
     // #region player movement
 
     function movePlayer() {
-        console.log(~~player.getPlayerCont().position.clone().distanceTo(clickedVect))
+        // console.log(~~player.getPlayerCont().position.clone().distanceTo(clickedVect))
         if (~~player.getPlayerCont().position.clone().distanceTo(clickedVect) > 10) {
-            player.getPlayerCont().translateOnAxis(directionVect, 5)
+            player.getPlayerCont().translateOnAxis(directionVect, 2)
             player.getPlayerCont().position.y = 0
 
-            // camera.position.x = player.getPlayerCont().position.x + 200
-            // camera.position.z = player.getPlayerCont().position.z + 200
-            // camera.lookAt(player.getPlayerCont().position)
+            camera.position.x = player.getPlayerCont().position.x + (200 * Math.sin(camAngle))
+            camera.position.z = player.getPlayerCont().position.z + (200 * Math.cos(camAngle))
+            camera.lookAt(player.getPlayerCont().position)
         }
     }
 
@@ -84,9 +83,9 @@ $(document).ready(async function () {
 
         if (intersects.length > 0) {
             clickedVect = intersects[0].point
-            console.log(clickedVect)
+            // console.log(clickedVect)
             directionVect = clickedVect.clone().sub(player.getPlayerCont().position).normalize()
-            console.log(directionVect)
+            // console.log(directionVect)
             //funkcja normalize() przelicza współrzędne x,y,z wektora na zakres 0-1
             //jest to wymagane przez kolejne funkcje
             var angle = Math.atan2(
@@ -109,8 +108,49 @@ $(document).ready(async function () {
 
     // #endregion player movement
 
+    // #region camera movement
+    var camLeft = false
+    var camRight = false
+    var camAngle = 0
+
+    document.addEventListener("keydown", e => {
+        console.log(e.code);
+        switch (e.code) {
+            case "KeyA": case "ArrowLeft":
+                camLeft = true
+                break
+            case "KeyD": case "ArrowRight":
+                camRight = true
+                break
+        }
+    })
+    document.addEventListener("keyup", e => {
+        console.log(e.code);
+        switch (e.code) {
+            case "KeyA": case "ArrowLeft":
+                camLeft = false
+                break
+            case "KeyD": case "ArrowRight":
+                camRight = false
+                break
+        }
+    })
+    function rotateCamera() {
+        if (camLeft) {
+            camAngle -= 0.05
+        }
+        if (camRight) {
+            camAngle += 0.05
+        }
+        camera.position.x = player.getPlayerCont().position.x + (200 * Math.sin(camAngle))
+        camera.position.z = player.getPlayerCont().position.z + (200 * Math.cos(camAngle))
+        camera.lookAt(player.getPlayerCont().position)
+    }
+    // #endregion camera movement
+
     function render() {
         movePlayer()
+        rotateCamera()
 
         renderer.render(scene, camera);
         requestAnimationFrame(render);

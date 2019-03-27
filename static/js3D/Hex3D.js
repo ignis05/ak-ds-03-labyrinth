@@ -36,6 +36,7 @@ class Hex3D {
         if (location.type == "light") {
             let light = new Light()
             container.add(light.container)
+            light.container.position.y += 80
             ui.lights.push(light)
         }
         if (location.type == "treasure") {

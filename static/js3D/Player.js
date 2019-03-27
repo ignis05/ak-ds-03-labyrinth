@@ -5,7 +5,7 @@ class Player {
         this.container.add(this.player) // kontener w którym jest player
         this.axes = new THREE.AxesHelper(200) // osie konieczne do kontroli kierunku ruchu
         this.player.add(this.axes)
-        this.player.position.y = 25
+        this.player.position.y = 25 + (Settings.radius * 0.1)
     }
 
     getPlayerCont() {
