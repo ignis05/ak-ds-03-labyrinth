@@ -69,8 +69,12 @@ $(document).ready(() => {
         }, 2000)
     })
 
-    $("#btRender").click(async function () {
+    $("#btRender").click(function () {
         window.location = "/game"
+    })
+
+    $("#btTestMove").click(function () {
+        window.location = "/static/html/testmove.html"
     })
 
 

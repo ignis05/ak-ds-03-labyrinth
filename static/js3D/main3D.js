@@ -30,7 +30,8 @@ $(document).ready(function () {
     $("#root").append(renderer.domElement);
     // #endregion initial
 
-    new Grid(2500)
+    let grid = new Grid(2500)
+    grid.addTo(scene)
 
     var orbitControl = new THREE.OrbitControls(camera, renderer.domElement);
     orbitControl.addEventListener('change', function () {

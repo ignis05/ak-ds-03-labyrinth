@@ -1,5 +1,7 @@
 class Grid {
-    constructor(size) {
+    constructor(size, color, wireframe) {
+        this.color = (color != undefined ? color : 0x000000)
+        this.wireframe = (wireframe != undefined ? wireframe : true)
         this.plane = null;
         this.size = size
         this.init()
@@ -7,10 +9,13 @@ class Grid {
     init() {
         var floor = new THREE.PlaneGeometry(this.size, this.size, 25, 25);
         var materialBlack = new THREE.MeshBasicMaterial({
-            color: 0x000000,
-            wireframe: true
+            side: THREE.DoubleSide,
+            color: this.color,
+            wireframe: this.wireframe
         })
         this.plane = new THREE.Mesh(floor, materialBlack);
+    }
+    addTo(scene) {
         scene.add(this.plane);
         this.plane.position.Y = -1
         this.plane.rotation.set(Math.PI / 2, 0, 0)
