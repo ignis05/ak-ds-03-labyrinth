@@ -47,7 +47,7 @@ $(document).ready(function () {
     //     renderer.render(scene, camera)
     // });
 
-    var player = new Player();
+    var player = new Player(new THREE.Mesh(Settings.playerGeometry, Settings.playerMaterial));
     player.addTo(scene)
 
     var point = new THREE.Mesh(new THREE.SphereGeometry(5, 32, 32), new THREE.MeshBasicMaterial({ color: 0xff0000 }));
@@ -62,7 +62,7 @@ $(document).ready(function () {
     } render()
 
     function movePlayer() {
-        console.log(~~player.getPlayerCont().position.clone().distanceTo(clickedVect))
+        // console.log(~~player.getPlayerCont().position.clone().distanceTo(clickedVect))
         if (~~player.getPlayerCont().position.clone().distanceTo(clickedVect) > 10) {
             player.getPlayerCont().translateOnAxis(directionVect, 5)
             player.getPlayerCont().position.y = 0
@@ -81,11 +81,13 @@ $(document).ready(function () {
 
         var intersects = raycaster.intersectObjects(scene.children);
 
+        console.log(intersects.length);
+
         if (intersects.length > 0) {
             clickedVect = intersects[0].point
-            console.log(clickedVect)
+            // console.log(clickedVect)
             directionVect = clickedVect.clone().sub(player.getPlayerCont().position).normalize()
-            console.log(directionVect)
+            // console.log(directionVect)
             //funkcja normalize() przelicza współrzędne x,y,z wektora na zakres 0-1
             //jest to wymagane przez kolejne funkcje
             var angle = Math.atan2(
