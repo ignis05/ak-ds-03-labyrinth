@@ -48,14 +48,13 @@ $(document).ready(async function () {
 
 
     // player
-    var playerModel = new Model()
-    var playerModelContainer = await playerModel.loadModel(Settings.playerGeometryURL, Settings.playerMaterialURL)
-    playerModel.setAnimation("stand")
-
-    var player = new Player(playerModelContainer)
+    var player = new Player()
+    await player.loadModel(Settings.playerGeometryURL, Settings.playerMaterialURL)
+    player.model.setAnimation("stand")
     player.addTo(scene)
-    player.getPlayerCont().position.x = level.hexagons[0].position.x
-    player.getPlayerCont().position.z = level.hexagons[0].position.z
+    player.container.position.x = level.hexagons[0].position.x
+    player.container.position.z = level.hexagons[0].position.z
+
 
     // raycaster
     var raycaster = new THREE.Raycaster(); // obiekt symulujący "rzucanie" promieni
@@ -68,23 +67,23 @@ $(document).ready(async function () {
     // #region player movement
 
     function movePlayer() {
-        // console.log(~~player.getPlayerCont().position.clone().distanceTo(clickedVect))
-        if (~~player.getPlayerCont().position.clone().distanceTo(clickedVect) > 5) {
-            player.getPlayerCont().translateOnAxis(directionVect, 2)
-            player.getPlayerCont().position.y = 0
+        // console.log(~~player.container.position.clone().distanceTo(clickedVect))
+        if (~~player.container.position.clone().distanceTo(clickedVect) > 5) {
+            player.container.translateOnAxis(directionVect, 2)
+            player.container.position.y = 0
 
-            camera.position.x = player.getPlayerCont().position.x + (200 * Math.sin(camAngle))
-            camera.position.z = player.getPlayerCont().position.z + (200 * Math.cos(camAngle))
-            camera.lookAt(player.getPlayerCont().position)
+            camera.position.x = player.container.position.x + (200 * Math.sin(camAngle))
+            camera.position.z = player.container.position.z + (200 * Math.cos(camAngle))
+            camera.lookAt(player.container.position)
         }
         else { //on arrive
-            playerModel.setAnimation("stand")
+            player.model.setAnimation("stand")
         }
     }
 
 
     function movePlayerEnable(event) {
-        playerModel.setAnimation("run")
+        player.model.setAnimation("run")
         mouseVector.x = (event.clientX / $(window).width()) * 2 - 1
         mouseVector.y = -(event.clientY / $(window).height()) * 2 + 1
         raycaster.setFromCamera(mouseVector, camera);
@@ -93,12 +92,12 @@ $(document).ready(async function () {
 
         if (intersects.length > 0) {
             clickedVect = intersects[0].point
-            directionVect = clickedVect.clone().sub(player.getPlayerCont().position).normalize()
+            directionVect = clickedVect.clone().sub(player.container.position).normalize()
             var angle = Math.atan2(
-                player.getPlayerCont().position.clone().x - clickedVect.x,
-                player.getPlayerCont().position.clone().z - clickedVect.z
+                player.container.position.clone().x - clickedVect.x,
+                player.container.position.clone().z - clickedVect.z
             )
-            player.getPlayerMesh().rotation.y = Math.PI * 1.5 + angle
+            player.mesh.rotation.y = Math.PI * 1.5 + angle
         }
     }
 
@@ -146,9 +145,9 @@ $(document).ready(async function () {
         if (camRight) {
             camAngle += 0.05
         }
-        camera.position.x = player.getPlayerCont().position.x + (200 * Math.sin(camAngle))
-        camera.position.z = player.getPlayerCont().position.z + (200 * Math.cos(camAngle))
-        camera.lookAt(player.getPlayerCont().position)
+        camera.position.x = player.container.position.x + (200 * Math.sin(camAngle))
+        camera.position.z = player.container.position.z + (200 * Math.cos(camAngle))
+        camera.lookAt(player.container.position)
     }
     // #endregion camera movement
 
@@ -158,7 +157,7 @@ $(document).ready(async function () {
         movePlayer()
         rotateCamera()
 
-        playerModel.updateModel(clock)
+        player.model.updateModel(clock)
 
         renderer.render(scene, camera);
         requestAnimationFrame(render);

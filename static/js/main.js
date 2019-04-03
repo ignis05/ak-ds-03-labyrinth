@@ -77,6 +77,11 @@ $(document).ready(() => {
         window.location = "/static/html/testmove.html"
     })
 
+    $("#btTestAlly").click(function () {
+        window.location = "/static/html/testally.html"
+    })
+    
+
 
     // hex type changers
     $("#btWalls").addClass("btActive") //initial active:

@@ -29,5 +29,9 @@ var Settings = {
     playerGeometry: new THREE.BoxGeometry(50, 50, 50, 5, 5, 5),
     playerMaterialURL: "/static/textures/skeleton_blue.png",
     playerGeometryURL: "/static/models/skeleton_armed.json",
+    allyMaterial: new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true }),
+    allyGeometry: new THREE.BoxGeometry(50, 50, 50, 5, 5, 5),
+    allyMaterialURL: "/static/textures/skeleton_blue.png",
+    allyGeometryURL: "/static/models/skeleton_armed.json",
 }
 Settings.create()

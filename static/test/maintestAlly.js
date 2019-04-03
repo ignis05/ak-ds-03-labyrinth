@@ -51,10 +51,6 @@ $(document).ready(function () {
     player.create(new THREE.Mesh(Settings.playerGeometry, Settings.playerMaterial))
     player.addTo(scene)
 
-    var point = new THREE.Mesh(new THREE.SphereGeometry(5, 32, 32), new THREE.MeshBasicMaterial({ color: 0xff0000 }));
-    scene.add(point)
-    point.position.y = -10
-
     function render() {
         movePlayer()
 
@@ -96,9 +92,6 @@ $(document).ready(function () {
                 player.container.position.clone().z - clickedVect.z
             )
             player.mesh.rotation.y = Math.PI + angle
-            point.position.x = clickedVect.x
-            point.position.y = 5
-            point.position.z = clickedVect.z
         }
     }
 

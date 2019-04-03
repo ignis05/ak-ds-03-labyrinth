@@ -1,4 +1,4 @@
-class Player {
+class Ally {
     constructor() {
         this.model = new Model()
         this.container = new THREE.Object3D()
