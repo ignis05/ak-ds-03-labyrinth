@@ -15,6 +15,7 @@ class Player {
 
     create(mesh) {
         this.mesh = mesh
+        this.mesh.name = "player"
         this.mesh.rotation.y = Math.PI / 2
         this.container.add(this.mesh)
         this.axes = new THREE.AxesHelper(200)

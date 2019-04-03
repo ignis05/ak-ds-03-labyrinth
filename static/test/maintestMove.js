@@ -86,6 +86,8 @@ $(document).ready(function () {
 
         if (intersects.length > 0) {
             clickedVect = intersects[0].point
+            console.log(intersects[0].point);
+            console.log(player.container.position);
             // console.log(clickedVect)
             directionVect = clickedVect.clone().sub(player.container.position).normalize()
             // console.log(directionVect)

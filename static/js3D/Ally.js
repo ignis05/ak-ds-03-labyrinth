@@ -1,8 +1,10 @@
 class Ally {
     constructor() {
+        this.follow = false
         this.model = new Model()
         this.container = new THREE.Object3D()
-        this.allies = []
+        this.vector = null
+        this.directionVect
     }
 
     loadModel(geometryURL, materialURL) {
@@ -15,11 +17,12 @@ class Ally {
 
     create(mesh) {
         this.mesh = mesh
+        this.mesh.name = "ally"
         this.mesh.rotation.y = Math.PI / 2
         this.container.add(this.mesh)
-        this.axes = new THREE.AxesHelper(200)
-        this.axes.rotation.y = -Math.PI / 2
-        this.mesh.add(this.axes)
+        // this.axes = new THREE.AxesHelper(200)
+        // this.axes.rotation.y = -Math.PI / 2
+        // this.mesh.add(this.axes)
         this.mesh.position.y = 25 + (Settings.radius * 0.1)
     }
 

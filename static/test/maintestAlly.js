@@ -51,8 +51,20 @@ $(document).ready(function () {
     player.create(new THREE.Mesh(Settings.playerGeometry, Settings.playerMaterial))
     player.addTo(scene)
 
+    var allies = []
+    for (let i = 0; i < 5; i++) { // ally spawns
+        let ally = new Ally();
+        ally.create(new THREE.Mesh(Settings.allyGeometry, Settings.allyMaterial))
+        ally.addTo(scene)
+        let x = ~~(Math.random() * 500)
+        let z = ~~(Math.random() * 500)
+        ally.container.position.set(x, 0, z)
+        allies.push(ally)
+    }
+
     function render() {
         movePlayer()
+        moveAllies()
 
         renderer.render(scene, camera);
         requestAnimationFrame(render);
@@ -70,15 +82,12 @@ $(document).ready(function () {
         }
     }
 
-
     function movePlayerEnable(event) {
         mouseVector.x = (event.clientX / $(window).width()) * 2 - 1
         mouseVector.y = -(event.clientY / $(window).height()) * 2 + 1
         raycaster.setFromCamera(mouseVector, camera);
 
         var intersects = raycaster.intersectObjects(scene.children);
-
-        console.log(intersects.length);
 
         if (intersects.length > 0) {
             clickedVect = intersects[0].point
@@ -95,7 +104,44 @@ $(document).ready(function () {
         }
     }
 
+    function activateAlly(event) {
+        mouseVector.x = (event.clientX / $(window).width()) * 2 - 1
+        mouseVector.y = -(event.clientY / $(window).height()) * 2 + 1
+        raycaster.setFromCamera(mouseVector, camera);
+
+        var intersects = raycaster.intersectObjects(scene.children, true);
+
+        if (intersects.length > 0) {
+            if (intersects[0].object.name == "ally") {
+                console.log("clicked ally");
+                let ally = allies.find(ally => ally.mesh.uuid == intersects[0].object.uuid)
+                console.log(ally);
+                if (true) { // placeholder for range check
+                    ally.follow = true
+                    player.allies.push(ally)
+                }
+            }
+        }
+    }
+
+    function moveAllies() {
+        player.allies.forEach((ally, iterator) => {
+            ally.vector = player.container.position
+            ally.directionVect = ally.vector.clone().sub(ally.container.position).normalize()
+            let angle = Math.atan2(
+                ally.container.position.clone().x - ally.vector.x,
+                ally.container.position.clone().z - ally.vector.z
+            )
+            ally.mesh.rotation.y = Math.PI + angle
+            if (~~ally.container.position.clone().distanceTo(ally.vector) > (100 * (iterator + 1))) {
+                ally.container.translateOnAxis(ally.directionVect, 5)
+                ally.container.position.y = 0
+            }
+        })
+    }
+
     $(document).mousedown(event => {
+        activateAlly(event)
         movePlayerEnable(event)
         $(document).on("mousemove", event => {
             movePlayerEnable(event)
