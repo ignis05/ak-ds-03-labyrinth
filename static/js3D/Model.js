@@ -1,10 +1,11 @@
 class Model {
     constructor() {
-        this.container = new THREE.Object3D()
+        // this.container = new THREE.Object3D()
         this.mixer = null
         this.animations = []
         this.model = null
         this.currentAnimation = null
+        this.clock = new THREE.Clock();
     }
 
     loadModel(urlModel, urlMaterial) {
@@ -29,9 +30,9 @@ class Model {
                     this.animations.push(animation.name)
                 })
 
-                this.container.add(model)
+                // this.container.add(model)
                 this.model = model
-                resolve(this.container);
+                resolve(this.model);
             })
         })
     }
@@ -39,8 +40,8 @@ class Model {
 
     // update mixera
 
-    updateModel(clock) {
-        var delta = clock.getDelta();
+    updateModel() {
+        var delta = this.clock.getDelta();
         if (this.mixer) this.mixer.update(delta)
     }
 

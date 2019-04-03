@@ -1,20 +1,20 @@
 class Hex3D {
     constructor(location, ui) {
-        console.log("creating hex");
+        // console.log("creating hex");
         var radius = Settings.radius
 
         var container = new THREE.Object3D() // kontener na obiekty 3D
 
         var wall = new THREE.Mesh(Settings.hexWallGeometry, Settings.hexWallMaterial);
 
-        console.log(location.dirOut, location.dirIn);
+        // console.log(location.dirOut, location.dirIn);
         for (var i = 0; i < 6; i++) {
             if (i == location.dirOut) {
                 var side = new Doors()
                 //side.castShadow = true;
             }
             else if (location.dirIn.includes(i)) {
-                console.log("dirin");
+                // console.log("dirin");
                 continue
             }
             else {
@@ -28,6 +28,7 @@ class Hex3D {
             container.add(side)
         }
         var floor = new THREE.Mesh(Settings.hexFloorGeometry, Settings.hexWallMaterial)
+        floor.name = "floor"
         floor.rotation.y = Math.PI / 2
         floor.position.y = -Settings.height / 2
         //floor.receiveShadow = true;

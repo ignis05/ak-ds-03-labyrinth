@@ -1,5 +1,5 @@
 var Settings = {
-    radius: 100,
+    radius: 200,
     height: 100,
     create() {
         this.hexWallMaterial = new THREE.MeshPhongMaterial({
@@ -31,7 +31,7 @@ var Settings = {
     playerGeometryURL: "/static/models/skeleton_armed.json",
     allyMaterial: new THREE.MeshBasicMaterial({ color: 0x00ff00 }),
     allyGeometry: new THREE.BoxGeometry(50, 50, 50, 5, 5, 5),
-    allyMaterialURL: "/static/textures/skeleton_blue.png",
+    allyMaterialURL: "/static/textures/skeleton_red.png",
     allyGeometryURL: "/static/models/skeleton_armed.json",
 }
 Settings.create()

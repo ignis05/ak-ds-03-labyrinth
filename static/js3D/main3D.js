@@ -18,7 +18,7 @@ $(document).ready(async function () {
         10000    // maxymalna renderowana odległość od kamery 
     );
     // camera.position.set(300, 100, 300)
-    camera.position.set(0, 500, 0)
+    camera.position.set(0, 600, 0)
     camera.lookAt(scene.position)
 
     renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -58,7 +58,17 @@ $(document).ready(async function () {
 
     // raycaster
     var raycaster = new THREE.Raycaster(); // obiekt symulujący "rzucanie" promieni
-    var mouseVector = new THREE.Vector2() // ten wektor czyli pozycja w przestrzeni 2D na ekranie(x,y) wykorzystany będzie do określenie pozycji myszy na ekranie a potem przeliczenia na pozycje 3D
+    var mouseVector = new THREE.Vector2()
+    $(document).mousedown(event => {
+        movePlayerEnable(event)
+        activateAlly(event)
+        $(document).on("mousemove", event => {
+            movePlayerEnable(event)
+        })
+        $(document).mouseup(event => {
+            $(document).off("mousemove")
+        })
+    })
 
     // wektory
     var clickedVect = new THREE.Vector3(0, 0, 0); // wektor określający PUNKT kliknięcia
@@ -69,7 +79,7 @@ $(document).ready(async function () {
     function movePlayer() {
         // console.log(~~player.container.position.clone().distanceTo(clickedVect))
         if (~~player.container.position.clone().distanceTo(clickedVect) > 5) {
-            player.container.translateOnAxis(directionVect, 2)
+            player.container.translateOnAxis(directionVect, 4)
             player.container.position.y = 0
 
             camera.position.x = player.container.position.x + (200 * Math.sin(camAngle))
@@ -88,9 +98,9 @@ $(document).ready(async function () {
         mouseVector.y = -(event.clientY / $(window).height()) * 2 + 1
         raycaster.setFromCamera(mouseVector, camera);
 
-        var intersects = raycaster.intersectObjects(scene.children);
+        var intersects = raycaster.intersectObjects(scene.children, true);
 
-        if (intersects.length > 0) {
+        if (intersects.length > 0 && intersects[0].object.name) {
             clickedVect = intersects[0].point
             directionVect = clickedVect.clone().sub(player.container.position).normalize()
             var angle = Math.atan2(
@@ -100,17 +110,6 @@ $(document).ready(async function () {
             player.mesh.rotation.y = Math.PI * 1.5 + angle
         }
     }
-
-    $(document).mousedown(event => {
-        movePlayerEnable(event)
-        $(document).on("mousemove", event => {
-            movePlayerEnable(event)
-        })
-        $(document).mouseup(event => {
-            $(document).off("mousemove")
-        })
-    })
-
     // #endregion player movement
 
     // #region camera movement
@@ -151,13 +150,72 @@ $(document).ready(async function () {
     }
     // #endregion camera movement
 
-    var clock = new THREE.Clock();
+    // #region allies
+    var allies = []
+    for (let hexagon of level.hexagons) { // ally spawns
+        if (Math.round(Math.random())) {
+            let ally = new Ally();
+            await ally.loadModel(Settings.allyGeometryURL, Settings.allyMaterialURL)
+            ally.addTo(scene)
+            let x = hexagon.position.x
+            let z = hexagon.position.z
+            ally.container.position.set(x, 0, z)
+            ally.model.setAnimation("stand")
+            allies.push(ally)
+        }
+    }
+
+    function activateAlly(event) {
+        mouseVector.x = (event.clientX / $(window).width()) * 2 - 1
+        mouseVector.y = -(event.clientY / $(window).height()) * 2 + 1
+        raycaster.setFromCamera(mouseVector, camera);
+
+        var intersects = raycaster.intersectObjects(scene.children, true);
+        console.log(intersects);
+
+        if (intersects.length > 0) {
+            if (intersects[0].object.name == "ally") {
+                console.log("clicked ally");
+                let ally = allies.find(ally => ally.mesh.uuid == intersects[0].object.uuid)
+                console.log(ally);
+                if (true) { // placeholder for range check
+                    ally.follow = true
+                    player.allies.push(ally)
+                }
+            }
+        }
+    }
+
+    function moveAllies() {
+        player.allies.forEach((ally, iterator) => {
+            ally.vector = player.container.position
+            ally.directionVect = ally.vector.clone().sub(ally.container.position).normalize()
+            let angle = Math.atan2(
+                ally.container.position.clone().x - ally.vector.x,
+                ally.container.position.clone().z - ally.vector.z
+            )
+            ally.mesh.rotation.y = Math.PI * 1.5 + angle
+            if (~~ally.container.position.clone().distanceTo(ally.vector) > (50 * (iterator + 1))) {
+                ally.container.translateOnAxis(ally.directionVect, 4)
+                ally.container.position.y = 0
+                ally.model.setAnimation("run")
+            }
+            else {
+                ally.model.setAnimation("stand")
+            }
+        })
+    }
+    // #endregion
 
     function render() {
         movePlayer()
         rotateCamera()
+        player.model.updateModel()
 
-        player.model.updateModel(clock)
+        moveAllies()
+        allies.forEach(ally => {
+            ally.model.updateModel()
+        })
 
         renderer.render(scene, camera);
         requestAnimationFrame(render);
