@@ -5,7 +5,7 @@ var Settings = {
         this.hexWallMaterial = new THREE.MeshPhongMaterial({
             color: 0xaaaaaa,
             side: THREE.DoubleSide,
-            //map: new THREE.TextureLoader().load("./mats/stone.png"),
+            map: new THREE.TextureLoader().load("/static/textures/brick_wall.jpg"),
         })
         this.hexWallGeometry = new THREE.BoxGeometry(this.radius, this.height, this.radius * 0.1)
         this.hexDoorsGeometry = new THREE.BoxGeometry(this.radius * 0.4, this.height, this.radius * 0.1)
