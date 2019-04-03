@@ -59,7 +59,7 @@ $(document).ready(async function () {
     // raycaster
     var raycaster = new THREE.Raycaster(); // obiekt symulujący "rzucanie" promieni
     var mouseVector = new THREE.Vector2()
-    $(document).mousedown(event => {
+    $(root).mousedown(event => {
         movePlayerEnable(event)
         activateAlly(event)
         $(document).on("mousemove", event => {
@@ -68,6 +68,10 @@ $(document).ready(async function () {
         $(document).mouseup(event => {
             $(document).off("mousemove")
         })
+    })
+
+    $(root).mousemove(event => {
+        highlightAlly(event)
     })
 
     // wektory
@@ -100,7 +104,7 @@ $(document).ready(async function () {
 
         var intersects = raycaster.intersectObjects(scene.children, true);
 
-        if (intersects.length > 0 && intersects[0].object.name) {
+        if (intersects.length > 0 && intersects[0].object.name == "floor") {
             clickedVect = intersects[0].point
             directionVect = clickedVect.clone().sub(player.container.position).normalize()
             var angle = Math.atan2(
@@ -171,7 +175,7 @@ $(document).ready(async function () {
         raycaster.setFromCamera(mouseVector, camera);
 
         var intersects = raycaster.intersectObjects(scene.children, true);
-        console.log(intersects);
+        // console.log(intersects);
 
         if (intersects.length > 0) {
             if (intersects[0].object.name == "ally") {
@@ -196,7 +200,7 @@ $(document).ready(async function () {
             )
             ally.mesh.rotation.y = Math.PI * 1.5 + angle
             if (~~ally.container.position.clone().distanceTo(ally.vector) > (50 * (iterator + 1))) {
-                ally.container.translateOnAxis(ally.directionVect, 4)
+                ally.container.translateOnAxis(ally.directionVect, 3.5)
                 ally.container.position.y = 0
                 ally.model.setAnimation("run")
             }
@@ -204,6 +208,27 @@ $(document).ready(async function () {
                 ally.model.setAnimation("stand")
             }
         })
+    }
+
+    function highlightAlly(event) {
+        allies.forEach(ally=>{
+            ally.ring.visible = false
+        })
+        mouseVector.x = (event.clientX / $(window).width()) * 2 - 1
+        mouseVector.y = -(event.clientY / $(window).height()) * 2 + 1
+        raycaster.setFromCamera(mouseVector, camera);
+
+        var intersects = raycaster.intersectObjects(scene.children, true);
+        // console.log(intersects);
+
+        if (intersects.length > 0) {
+            if (intersects[0].object.name == "ally") {
+                let ally = allies.find(ally => ally.mesh.uuid == intersects[0].object.uuid)
+                if (player.allies.indexOf(ally) == -1) { // if not following
+                    ally.ring.visible = true
+                }
+            }
+        }
     }
     // #endregion
 

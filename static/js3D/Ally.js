@@ -20,6 +20,10 @@ class Ally {
         this.mesh.name = "ally"
         this.mesh.rotation.y = Math.PI / 2
         this.container.add(this.mesh)
+        this.ring = new Ring(Settings.ringGeometry, Settings.ringMaterial)
+        this.ring.position.y = (Settings.radius * 0.1)
+        this.ring.visible = false
+        this.container.add(this.ring)
         // this.axes = new THREE.AxesHelper(200)
         // this.axes.rotation.y = -Math.PI / 2
         // this.mesh.add(this.axes)

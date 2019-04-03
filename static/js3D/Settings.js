@@ -33,5 +33,7 @@ var Settings = {
     allyGeometry: new THREE.BoxGeometry(50, 50, 50, 5, 5, 5),
     allyMaterialURL: "/static/textures/skeleton_red.png",
     allyGeometryURL: "/static/models/skeleton_armed.json",
+    ringGeometry: new THREE.RingGeometry(25, 35, 8),
+    ringMaterial: new THREE.MeshBasicMaterial({ color: 0x00ff00, side: THREE.DoubleSide }),
 }
 Settings.create()
