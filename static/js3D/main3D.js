@@ -44,6 +44,7 @@ $(document).ready(async function () {
 
     var net = new Net()
     var map = await net.loadlevel()
+
     var level = new Level(ui, map)
 
 
@@ -81,8 +82,11 @@ $(document).ready(async function () {
     // #region player movement
 
     function movePlayer() {
-        // console.log(~~player.container.position.clone().distanceTo(clickedVect))
-        if (~~player.container.position.clone().distanceTo(clickedVect) > 5) {
+        var dist = ~~player.container.position.clone().distanceTo(clickedVect)
+        if (player.lastdist == null) player.lastdist = dist + 1
+
+        if (player.lastdist > dist) {
+            player.lastdist = dist
             player.container.translateOnAxis(directionVect, 4)
             player.container.position.y = 0
 
@@ -97,7 +101,6 @@ $(document).ready(async function () {
 
 
     function movePlayerEnable(event) {
-        player.model.setAnimation("run")
         mouseVector.x = (event.clientX / $(window).width()) * 2 - 1
         mouseVector.y = -(event.clientY / $(window).height()) * 2 + 1
         raycaster.setFromCamera(mouseVector, camera);
@@ -105,6 +108,7 @@ $(document).ready(async function () {
         var intersects = raycaster.intersectObjects(scene.children, true);
 
         if (intersects.length > 0 && intersects[0].object.name == "floor") {
+            player.model.setAnimation("run")
             clickedVect = intersects[0].point
             directionVect = clickedVect.clone().sub(player.container.position).normalize()
             var angle = Math.atan2(
@@ -112,6 +116,7 @@ $(document).ready(async function () {
                 player.container.position.clone().z - clickedVect.z
             )
             player.mesh.rotation.y = Math.PI * 1.5 + angle
+            player.lastdist = null
         }
     }
     // #endregion player movement
@@ -211,7 +216,7 @@ $(document).ready(async function () {
     }
 
     function highlightAlly(event) {
-        allies.forEach(ally=>{
+        allies.forEach(ally => {
             ally.ring.visible = false
         })
         mouseVector.x = (event.clientX / $(window).width()) * 2 - 1
