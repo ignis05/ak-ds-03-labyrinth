@@ -169,7 +169,7 @@ $(document).ready(async function () {
             let x = hexagon.position.x
             let z = hexagon.position.z
             ally.container.position.set(x, 0, z)
-            ally.model.setAnimation("stand")
+            ally.model.setAnimation("1stand")
             allies.push(ally)
         }
     }
@@ -207,10 +207,10 @@ $(document).ready(async function () {
             if (~~ally.container.position.clone().distanceTo(ally.vector) > (50 * (iterator + 1))) {
                 ally.container.translateOnAxis(ally.directionVect, 3.5)
                 ally.container.position.y = 0
-                ally.model.setAnimation("run")
+                ally.model.setAnimation("2run")
             }
             else {
-                ally.model.setAnimation("stand")
+                ally.model.setAnimation("1stand")
             }
         })
     }
