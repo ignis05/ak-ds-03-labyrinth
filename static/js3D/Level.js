@@ -19,7 +19,7 @@ class Level {
         for (var location of this.map.level) {
             let model = new Hex3D(location, this.ui)
             scene.add(model)
-            model.position.x = Settings.hexSpaces * 1.75 * location.col
+            model.position.x = Settings.hexSpaces * 1.73 * location.col
             if (location.col % 2 == 0) {
                 model.position.z = ((Settings.hexSpaces * 2) * location.row)
             }
