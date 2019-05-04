@@ -67,6 +67,9 @@ class Hex {
                 case "light":
                     img.css("background", "yellow")
                     break
+                case "ally":
+                    img.css("background", "green")
+                    break
             }
             Hex.correctDirIns(map)
             displayBlock.innerText = JSON.stringify(map, null, 4)
@@ -114,6 +117,9 @@ class Hex {
                     break
                 case "light":
                     img.css("background", "yellow")
+                    break
+                case "ally":
+                    img.css("background", "green")
                     break
             }
         }

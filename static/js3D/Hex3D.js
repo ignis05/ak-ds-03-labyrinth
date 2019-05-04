@@ -1,6 +1,7 @@
 class Hex3D {
     constructor(location, ui) {
         // console.log("creating hex");
+
         var radius = Settings.radius
 
         var container = new THREE.Object3D() // kontener na obiekty 3D
@@ -46,6 +47,9 @@ class Hex3D {
         }
 
         container.position.y = Settings.height / 2
+
+        container.locationData = location
+
         return container
     }
 }

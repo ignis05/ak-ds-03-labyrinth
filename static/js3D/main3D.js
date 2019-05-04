@@ -162,7 +162,7 @@ $(document).ready(async function () {
     // #region allies
     var allies = []
     for (let hexagon of level.hexagons) { // ally spawns
-        if (Math.round(Math.random())) {
+        if (hexagon.locationData.type == 'ally') {
             let ally = new Ally();
             await ally.loadModel(Settings.allyGeometryURL, Settings.allyMaterialURL)
             ally.addTo(scene)
