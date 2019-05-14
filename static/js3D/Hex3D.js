@@ -6,6 +6,8 @@ class Hex3D {
 
         var container = new THREE.Object3D() // kontener na obiekty 3D
 
+        container.walls = []
+
         var wall = new THREE.Mesh(Settings.hexWallGeometry, Settings.hexWallMaterial);
 
         // console.log(location.dirOut, location.dirIn);
@@ -20,6 +22,7 @@ class Hex3D {
             }
             else {
                 var side = wall.clone()
+                container.walls.push(side)
                 //side.receiveShadow = true;
             }
             side.position.x = -(radius * Math.sqrt(3) / 2) * Math.sin((Math.PI / 3 * i) + Math.PI)

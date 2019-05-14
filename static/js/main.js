@@ -80,6 +80,10 @@ $(document).ready(() => {
     $("#btTestAlly").click(function () {
         window.location = "/static/html/testally.html"
     })
+
+    $("#btTestCol").click(function () {
+        window.location = "/static/html/testcol.html"
+    })
     
 
 
