@@ -85,7 +85,7 @@ $(document).ready(async function () {
         var dist = ~~player.container.position.clone().distanceTo(clickedVect)
         if (player.lastdist == null) player.lastdist = dist + 1
 
-        if (player.lastdist > dist) {
+        if (player.lastdist > dist && collision()) {
             player.lastdist = dist
             player.container.translateOnAxis(directionVect, 4)
             player.container.position.y = 0
@@ -118,6 +118,36 @@ $(document).ready(async function () {
             player.mesh.rotation.y = Math.PI * 1.5 + angle
             player.lastdist = null
         }
+    }
+
+    // collsion
+    var wallTab = []
+    for (let hexagon of level.hexagons) {
+        wallTab = wallTab.concat(hexagon.walls)
+    }
+    console.log(wallTab);
+
+
+    var greenPoint = new THREE.Mesh(new THREE.SphereGeometry(5, 32, 32), new THREE.MeshBasicMaterial({ color: 0x00ff00 }));
+    scene.add(greenPoint)
+    greenPoint.position.y = 50
+
+    var raycasterCol = new THREE.Raycaster(); // raycaster dla kolizji
+
+    function collision() {
+        var ray = new THREE.Ray(player.container.position, player.axes.getWorldDirection(new THREE.Vector3(1, 1, 1)))
+
+        raycasterCol.ray = ray
+
+        var intersects = raycasterCol.intersectObjects(wallTab, true);
+
+        if (intersects[0]) {
+            console.log('HERE');
+            console.log(intersects[0].distance) // odległość od vertex-a na wprost, zgodnie z kierunkiem ruchu
+            greenPoint.position.set(intersects[0].point.x, 50, intersects[0].point.z)
+            if (intersects[0].distance <= 40) return false
+        }
+        return true
     }
     // #endregion player movement
 

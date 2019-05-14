@@ -7,6 +7,9 @@ class Doors {
         part2.position.x = -(Settings.radius * 0.35)
         container.add(part1)
         container.add(part2)
+        container.walls = []
+        container.walls.push(part1)
+        container.walls.push(part2)
         return container
     }
 }

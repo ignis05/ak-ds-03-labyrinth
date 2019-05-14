@@ -15,6 +15,7 @@ class Hex3D {
             if (i == location.dirOut) {
                 var side = new Doors()
                 //side.castShadow = true;
+                container.walls = container.walls.concat(side.walls)
             }
             else if (location.dirIn.includes(i)) {
                 // console.log("dirin");
