@@ -1,6 +1,7 @@
 var scene;
 var render;
 $(document).ready(async function () {
+    console.log('ready');
 
     // #region initial
     $(window).on("resize", () => {
